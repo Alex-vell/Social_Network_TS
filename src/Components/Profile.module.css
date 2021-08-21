@@ -1,0 +1,11 @@
+.content {
+  grid-area: c;
+  background-color: gainsboro;
+  border-radius: 15px;
+  padding: 10px;
+}
+.content img {
+  border-radius: 15px;
+  wigth: 500px;
+  height: 500px;
+}
