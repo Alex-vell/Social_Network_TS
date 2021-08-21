@@ -1,13 +1,19 @@
 import React from "react";
 import s from './Post.module.css'
 
-const Post = () => {
+type typeProps = {
+    message: string
+    likesCount: string
+}
+
+const Post: React.FC<typeProps> = (props) => {
     return (
         <div className={s.item}>
             <img src='https://ezyschooling.com/_nuxt/img/default-avatar.7a6572e.png'/>
-            post 1
+            {props.message}
+
             <div>
-                like
+                like {props.likesCount}
             </div>
         </div>
     )
