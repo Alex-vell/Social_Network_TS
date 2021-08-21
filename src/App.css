@@ -1,4 +1,4 @@
-.app-container {
+.app-wrapper {
     margin: 0 auto;
     width: 1200px;
     height: auto;
@@ -12,7 +12,7 @@
     /* grid-gap: 10px; */
 }
 
-.app-container-content {
+.app-wrapper-content {
     grid-area: c;
     background-color: gainsboro;
     border-radius: 15px;

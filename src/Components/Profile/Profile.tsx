@@ -2,7 +2,11 @@ import React from "react";
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 
-const Profile = () => {
+type profilePropsType = {
+
+}
+
+const Profile: React.FC<profilePropsType> = () => {
     return (
         <div>
             <div className={s.image}>

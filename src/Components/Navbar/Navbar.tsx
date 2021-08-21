@@ -1,17 +1,21 @@
 import React from "react";
 import s from './Navbar.module.css'
 
-const Navbar = () => {
+type navbarPropsType = {
+
+}
+
+const Navbar: React.FC<navbarPropsType> = () => {
     return (
         <nav className={s.nav}>
             <div className={`${s.item} ${s.active}`}>
-                <a>Profile</a>
+                <a href='/profile'>Profile</a>
             </div>
             <div className={s.item}>
-                <a>Messages</a>
+                <a href='/dialogs'>Messages</a>
             </div>
             <div className={s.item}>
-                <a>News</a>
+                <a >News</a>
             </div>
             <div className={s.item}>
                 <a>Music</a>

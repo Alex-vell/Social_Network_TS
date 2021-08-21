@@ -1,7 +1,11 @@
 import React from "react";
 import s from './Dialogs.module.css'
 
-const Dialogs = () => {
+type dialogsPopsType = {
+
+}
+
+const Dialogs: React.FC<dialogsPopsType> = () => {
     return (
         <div>
             Dialogs
