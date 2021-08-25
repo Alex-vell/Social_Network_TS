@@ -1,10 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import s from './Navbar.module.css'
 
-type navbarPropsType = {
-
-}
+type navbarPropsType = {}
 
 const Navbar: React.FC<navbarPropsType> = () => {
     return (
