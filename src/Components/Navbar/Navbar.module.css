@@ -9,10 +9,11 @@
   padding-top: 10px;
 }
 
-.item {
+.item a {
   color: midnightblue;
   font-weight: bold;
+  text-decoration: none;
 }
-.active {
-  color: goldenrod;
+.item a.active {
+  color: brown;
 }
