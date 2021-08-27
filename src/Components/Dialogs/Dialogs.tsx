@@ -2,25 +2,38 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from './Dialogs.module.css'
 
-type dialogsPopsType = {}
+type dialogsItemType = {
+    id: number
+    name: string
+}
+type messageType = {
+    message: string
+}
 
-const Dialogs: React.FC<dialogsPopsType> = () => {
+
+const DialogsItem = (props: dialogsItemType) => {
+    let path = '/dialogs' + props.id
+
+    return <div className={s.dialog + ' ' + s.active}>
+        <NavLink to={path}>{props.name}</NavLink>
+    </div>
+}
+
+const Message = (props: messageType) => {
+  return <div className={s.message}>{props.message}</div>
+}
+
+const Dialogs: React.FC<dialogsItemType> = () => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/1'>Alex</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/2'>Natali</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to='/dialogs/3'>Anna</NavLink>
-                </div>
+                <DialogsItem id={1} name='Alex' />
+                <DialogsItem id={2} name='Natali' />
+                <DialogsItem id={3} name='Anna' />
             </div>
             <div className={s.messages}>
-                <div className={s.message}>I am a developer</div>
-                <div className={s.message}>bla bla</div>
+                <Message message='I am a developer'/>
+                <Message message='bla bla'/>
             </div>
         </div>
     )

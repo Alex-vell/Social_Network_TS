@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileContent from "./ProfileContent/ProfileContent";
 
 type profilePropsType = {
 
@@ -9,12 +10,7 @@ type profilePropsType = {
 const Profile: React.FC<profilePropsType> = () => {
     return (
         <div>
-            <div className={s.image}>
-                <img src='https://img.hipertextual.com/content/images/system/home_cover_1487382543596_2cf9e3.jpg'/>
-            </div>
-            <div>
-                ava + description
-            </div>
+            <ProfileContent/>
             <MyPosts/>
         </div>
     )
