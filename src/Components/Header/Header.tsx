@@ -1,9 +1,7 @@
 import React from "react";
 import s from './Header.module.css'
 
-type headerPropsType = {
-
-}
+type headerPropsType = {}
 
 const Header: React.FC<headerPropsType> = () => {
     return (

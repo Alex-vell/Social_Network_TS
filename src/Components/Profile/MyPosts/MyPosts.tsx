@@ -2,7 +2,6 @@ import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-
 type PostsType = {
     id: number
     message: string
@@ -13,7 +12,6 @@ type ProfilePageType = {
 }
 
 const MyPosts: React.FC<ProfilePageType> = (props) => {
-
 
     let postsElement = props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)
 

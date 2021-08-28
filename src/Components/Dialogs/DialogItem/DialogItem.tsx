@@ -7,7 +7,6 @@ type dialogsItemType = {
     name: string
 }
 
-
 const DialogsItem = (props: dialogsItemType) => {
     let path = '/dialogs/' + props.id
 

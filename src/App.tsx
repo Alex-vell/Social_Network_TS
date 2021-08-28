@@ -5,7 +5,6 @@ import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import state from "./redux/state";
 
 type DialogsType = {
     id: number
@@ -35,7 +34,7 @@ type StatePropsType = {
     state: StateType
 }
 
-const App: React.FC<StatePropsType> = () => {
+const App: React.FC<StatePropsType> = (props) => {
 
 
     return (
@@ -44,8 +43,8 @@ const App: React.FC<StatePropsType> = () => {
                 < Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage} />}/>
-                    <Route path='/profile' render={() => <Profile state={state.profilePage} />}/>
+                    <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.profilePage}/>}/>
                 </div>
             </div>
         </BrowserRouter>
