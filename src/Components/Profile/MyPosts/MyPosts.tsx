@@ -21,6 +21,7 @@ const MyPosts: React.FC<postDataType> = (props) => {
     ]*/
 
 
+
     return (
         <div>
             My posts
