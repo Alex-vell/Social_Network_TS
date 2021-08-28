@@ -3,17 +3,16 @@ import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
 
-type myPostsType = {
+type PostsType = {
     id: number
     message: string
     likesCount: number
-
 }
-type postDataType = {
-    posts: Array<myPostsType>
+type ProfilePageType = {
+    posts: Array<PostsType>
 }
 
-const MyPosts: React.FC<postDataType> = (props) => {
+const MyPosts: React.FC<ProfilePageType> = (props) => {
 
 
     let postsElement = props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)

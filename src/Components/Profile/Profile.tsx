@@ -4,26 +4,29 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileContent from "./ProfileContent/ProfileContent";
 import Post from "./MyPosts/Post/Post";
 
-type profilePropsType = {
+
+type PostsType = {
     id: number
     message: string
     likesCount: number
 }
-type postDataType = {
-    posts: Array<profilePropsType>
+type ProfilePageType = {
+    posts: Array<PostsType>
+}
+type StateType = {
+    state: ProfilePageType
 }
 
 
-const Profile: React.FC<postDataType> = (props) => {
+const Profile: React.FC<StateType> = (props) => {
 
-
-    /*let postsElement = posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)*/
+    /*let postsElement = props.state.posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)*/
 
 
     return (
         <div>
             <ProfileContent/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.state.posts} />
         </div>
     )
 }
