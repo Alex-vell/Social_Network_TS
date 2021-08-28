@@ -1,9 +1,7 @@
 import React from "react";
 import s from './ProfileContent.module.css'
 
-type profileContentType = {
-
-}
+type profileContentType = {}
 
 const ProfileContent: React.FC<profileContentType> = () => {
     return (

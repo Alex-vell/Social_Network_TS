@@ -9,21 +9,21 @@ type profilePropsType = {
     message: string
     likesCount: number
 }
+type postDataType = {
+    posts: Array<profilePropsType>
+}
 
 
-const Profile: React.FC<profilePropsType> = () => {
+const Profile: React.FC<postDataType> = (props) => {
 
-    let posts = [
-        {id: 1, message: 'Hey la lay', likesCount: 15},
-        {id: 2, message: 'Bla bla', likesCount: 11},
-    ]
-    let postsElement = posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)
+
+    /*let postsElement = posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)*/
 
 
     return (
         <div>
             <ProfileContent/>
-            <MyPosts postsElement={postsElement} />
+            <MyPosts posts={props.posts}/>
         </div>
     )
 }

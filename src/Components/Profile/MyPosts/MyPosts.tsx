@@ -1,6 +1,6 @@
 import React from "react";
 import s from './MyPosts.module.css'
-
+import Post from "./Post/Post";
 
 
 type myPostsType = {
@@ -10,17 +10,13 @@ type myPostsType = {
 
 }
 type postDataType = {
-    postsElement: any
+    posts: Array<myPostsType>
 }
 
 const MyPosts: React.FC<postDataType> = (props) => {
 
-    /*let postData = [
-        {id: 1, message: 'Hey la lay', likesCount: 15},
-        {id: 2, message: 'Bla bla', likesCount: 11},
-    ]*/
 
-
+    let postsElement = props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)
 
     return (
         <div>
@@ -35,7 +31,7 @@ const MyPosts: React.FC<postDataType> = (props) => {
             </div>
 
             <div className={s.posts}>
-                {props.postsElement}
+                {postsElement}
             </div>
         </div>
     )
