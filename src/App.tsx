@@ -32,6 +32,7 @@ type StateType = {
 }
 type StatePropsType = {
     state: StateType
+    addPost: (postMessage: string) => void
 }
 
 const App: React.FC<StatePropsType> = (props) => {
@@ -44,7 +45,8 @@ const App: React.FC<StatePropsType> = (props) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.profilePage}/>}/>
+                    <Route path='/profile' render={() => <Profile state={props.state.profilePage}
+                                                                  addPost={props.addPost}/>}/>
                 </div>
             </div>
         </BrowserRouter>

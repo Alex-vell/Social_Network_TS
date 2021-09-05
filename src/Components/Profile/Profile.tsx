@@ -13,13 +13,14 @@ type ProfilePageType = {
 }
 type StateType = {
     state: ProfilePageType
+    addPost: (postMessage: string) => void
 }
 
 const Profile: React.FC<StateType> = (props) => {
     return (
         <div>
             <ProfileContent/>
-            <MyPosts posts={props.state.posts}/>
+            <MyPosts posts={props.state.posts} addPost={props.addPost}/>
         </div>
     )
 }
