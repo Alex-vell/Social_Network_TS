@@ -35,6 +35,8 @@ type StatePropsType = {
     state: StateType
     addPostCallback: (postMessage: string) => void
     addNewPostTextCallback: (newText: string) => void
+    addMessageCallback: (message: string) => void
+    addNewMessageTextCallBack: (newText: string) => void
 }
 
 const App: React.FC<StatePropsType> = (props) => {
@@ -46,7 +48,10 @@ const App: React.FC<StatePropsType> = (props) => {
                 < Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}
+                                                                  addMessageCallback={props.addMessageCallback}
+                                                                  addNewMessageTextCallBack={props.addNewMessageTextCallBack}
+                                                                  newMessageText={props.state.dialogsPage.newMessageText}/>}/>
                     <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
                                                                   addPostCallback={props.addPostCallback}
                                                                   addNewPostTextCallback={props.addNewPostTextCallback}/>}/>

@@ -1,35 +1,33 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import DialogsItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsType, MessagesType} from "../../redux/state";
-
-/*type MessagesType = {
-    id: number
-    message: string
-}
-type DialogsType = {
-    id: number
-    name: string
-}*/
-type DialogPageType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-}
+import {DialogsPageType} from "../../redux/state";
 
 type StateType = {
-    state: DialogPageType
+    state: DialogsPageType
+    newMessageText: string
+    addMessageCallback: (message: string) => void
+    addNewMessageTextCallBack: (newText: string) => void
 }
 
 
 const Dialogs: React.FC<StateType> = (props) => {
 
 
-    let dialogsElements = props.state.dialogs.map(el => <DialogsItem id={el.id} name={el.name}/>)
-    let messagesElements = props.state.messages.map(el => <Message message={el.message}/>)
+    let dialogsElements = props.state.dialogs.map(el => <DialogsItem key={el.id} id={el.id} name={el.name}/>)
+    let messagesElements = props.state.messages.map(el => <Message key={el.id} message={el.message}/>)
 
-    let [title, setTitle] = useState('');
     const addMessageHandler = () => {
+        props.addMessageCallback('')
+    }
+    const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        let content = event.currentTarget.value
+        props.addNewMessageTextCallBack(content)
+    }
+
+    /* let [title, setTitle] = useState('');*/
+    /*const addMessageHandler = () => {
         alert(title)
         setTitle('')
     }
@@ -39,10 +37,10 @@ const Dialogs: React.FC<StateType> = (props) => {
     const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Control' && 'Enter') {
             alert(title)
-            /*setTitle(event.currentTarget.value);*/
+            /!*setTitle(event.currentTarget.value);*!/
             setTitle('')
         }
-    }
+    }*/
 
     return (
         <div className={s.dialogs}>
@@ -52,7 +50,7 @@ const Dialogs: React.FC<StateType> = (props) => {
             <div className={s.messages}>
                 {messagesElements}
             </div>
-            <textarea value={title} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}/>
+            <textarea value={props.newMessageText} onChange={onChangeMessageHandler}/>
             <button onClick={addMessageHandler}>add</button>
         </div>
     )

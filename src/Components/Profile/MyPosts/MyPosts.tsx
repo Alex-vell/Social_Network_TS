@@ -1,7 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPost, PostsType} from "../../../redux/state";
+import {PostsType} from "../../../redux/state";
 
 /*type PostsType = {
     id: number
@@ -17,7 +17,7 @@ type ProfilePageType = {
 
 const MyPosts: React.FC<ProfilePageType> = (props) => {
 
-    let postsElement = props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)
+    let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
 
 
     /*let [text, setText] = useState('');
@@ -34,7 +34,7 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
             setText('')
         }
     }*/
-    let postMessageRef = React.createRef<HTMLTextAreaElement>()
+
     const addPostHandler = () => {
         props.addPostCallback('')
 
@@ -44,7 +44,7 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
     }
 */
 
-    const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChangePostHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       let content = event.currentTarget.value
         props.addNewPostTextCallback(content)
     }
@@ -53,7 +53,7 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
             My posts
             <div>
                 <div>
-                    <textarea ref={postMessageRef} onChange={onPostChangeHandler} value={props.newPostText}/>
+                    <textarea onChange={onChangePostHandler} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPostHandler}>Add post</button>

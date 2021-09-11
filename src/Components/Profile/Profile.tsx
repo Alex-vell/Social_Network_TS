@@ -1,5 +1,4 @@
 import React from "react";
-import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileContent from "./ProfileContent/ProfileContent";
 import {ProfilePageType} from "../../redux/state";
