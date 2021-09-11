@@ -1,16 +1,18 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPost} from "../../../redux/state";
+import {addPost, PostsType} from "../../../redux/state";
 
-type PostsType = {
+/*type PostsType = {
     id: number
     message: string
     likesCount: number
-}
+}*/
 type ProfilePageType = {
     posts: Array<PostsType>
-    addPost: (postMessage: string) => void
+    newPostText: string
+    addPostCallback: (postMessage: string) => void
+    addNewPostTextCallback: (newText: string) => void
 }
 
 const MyPosts: React.FC<ProfilePageType> = (props) => {
@@ -18,9 +20,9 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
     let postsElement = props.posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>)
 
 
-    let [text, setText] = useState('');
+    /*let [text, setText] = useState('');
     const addPostHandler = () => {
-        props.addPost(text)
+        props.addPostCallback(text)
         setText('')
     }
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,17 +30,30 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Enter') {
-            props.addPost(text)
+            props.addPostCallback(text)
             setText('')
         }
-    }
+    }*/
+    let postMessageRef = React.createRef<HTMLTextAreaElement>()
+    const addPostHandler = () => {
+        props.addPostCallback('')
 
+    }
+    /*const onChangeHandler = (postMessageRef: ChangeEvent<HTMLTextAreaElement>) => {
+        props.addPostCallback(postMessageRef.currentTarget.value);
+    }
+*/
+
+    const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+      let content = event.currentTarget.value
+        props.addNewPostTextCallback(content)
+    }
     return (
         <div>
             My posts
             <div>
                 <div>
-                    <textarea value={text} onChange={onChangeHandler} onKeyDown={onKeyPressHandler}></textarea>
+                    <textarea ref={postMessageRef} onChange={onPostChangeHandler} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPostHandler}>Add post</button>

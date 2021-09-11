@@ -5,8 +5,9 @@ import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
+import {StateType} from "./redux/state";
 
-type DialogsType = {
+/*type DialogsType = {
     id: number
     name: string
 }
@@ -29,10 +30,11 @@ type DialogPageType = {
 type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
-}
+}*/
 type StatePropsType = {
     state: StateType
-    addPost: (postMessage: string) => void
+    addPostCallback: (postMessage: string) => void
+    addNewPostTextCallback: (newText: string) => void
 }
 
 const App: React.FC<StatePropsType> = (props) => {
@@ -45,8 +47,9 @@ const App: React.FC<StatePropsType> = (props) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
-                    <Route path='/profile' render={() => <Profile state={props.state.profilePage}
-                                                                  addPost={props.addPost}/>}/>
+                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
+                                                                  addPostCallback={props.addPostCallback}
+                                                                  addNewPostTextCallback={props.addNewPostTextCallback}/>}/>
                 </div>
             </div>
         </BrowserRouter>

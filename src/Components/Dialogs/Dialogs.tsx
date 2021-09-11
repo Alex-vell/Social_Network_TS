@@ -2,15 +2,16 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import s from './Dialogs.module.css'
 import DialogsItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {DialogsType, MessagesType} from "../../redux/state";
 
-type MessagesType = {
+/*type MessagesType = {
     id: number
     message: string
 }
 type DialogsType = {
     id: number
     name: string
-}
+}*/
 type DialogPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
