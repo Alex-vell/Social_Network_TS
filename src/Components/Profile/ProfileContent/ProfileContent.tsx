@@ -3,7 +3,7 @@ import s from './ProfileContent.module.css'
 
 type profileContentType = {}
 
-const ProfileContent: React.FC<profileContentType> = () => {
+export const ProfileContent: React.FC<profileContentType> = () => {
     return (
         <div>
             <div className={s.image}>
@@ -15,5 +15,3 @@ const ProfileContent: React.FC<profileContentType> = () => {
         </div>
     )
 }
-
-export default ProfileContent

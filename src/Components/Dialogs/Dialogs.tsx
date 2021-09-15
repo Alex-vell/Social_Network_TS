@@ -1,29 +1,32 @@
 import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
-import DialogsItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {DialogsItem} from "./DialogItem/DialogItem";
+import {Message} from "./Message/Message";
+import {ActionsTypes, addMessageAC, addNewMessageTextAC, DialogsPageType} from "../../redux/state";
 
 type StateType = {
     state: DialogsPageType
     newMessageText: string
-    addMessageCallback: (message: string) => void
-    addNewMessageTextCallBack: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
+    //addMessageCallback: (message: string) => void
+    //addNewMessageTextCallBack: (newText: string) => void
 }
 
 
-const Dialogs: React.FC<StateType> = (props) => {
+export const Dialogs: React.FC<StateType> = (props) => {
 
 
     let dialogsElements = props.state.dialogs.map(el => <DialogsItem key={el.id} id={el.id} name={el.name}/>)
     let messagesElements = props.state.messages.map(el => <Message key={el.id} message={el.message}/>)
 
     const addMessageHandler = () => {
-        props.addMessageCallback('')
+        props.dispatch(addMessageAC(props.newMessageText))
+        //props.addMessageCallback('')
     }
     const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let content = event.currentTarget.value
-        props.addNewMessageTextCallBack(content)
+        props.dispatch(addNewMessageTextAC(content))
+        //props.addNewMessageTextCallBack(content)
     }
 
     /* let [title, setTitle] = useState('');*/
@@ -55,5 +58,3 @@ const Dialogs: React.FC<StateType> = (props) => {
         </div>
     )
 }
-
-export default Dialogs

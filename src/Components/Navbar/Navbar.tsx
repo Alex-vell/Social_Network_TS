@@ -4,7 +4,7 @@ import s from './Navbar.module.css'
 
 type navbarPropsType = {}
 
-const Navbar: React.FC<navbarPropsType> = () => {
+export const Navbar: React.FC<navbarPropsType> = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -25,5 +25,3 @@ const Navbar: React.FC<navbarPropsType> = () => {
         </nav>
     )
 }
-
-export default Navbar

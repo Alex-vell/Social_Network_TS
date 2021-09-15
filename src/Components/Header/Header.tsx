@@ -3,7 +3,7 @@ import s from './Header.module.css'
 
 type headerPropsType = {}
 
-const Header: React.FC<headerPropsType> = () => {
+export const Header: React.FC<headerPropsType> = () => {
     return (
         <header className={s.header}>
             <img
@@ -11,5 +11,3 @@ const Header: React.FC<headerPropsType> = () => {
         </header>
     )
 }
-
-export default Header

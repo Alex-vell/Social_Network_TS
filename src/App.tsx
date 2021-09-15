@@ -1,64 +1,43 @@
 import React from 'react';
 import './App.css';
-import Header from "./Components/Header/Header";
-import Navbar from "./Components/Navbar/Navbar";
-import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {StateType} from "./redux/state";
+import {Header} from "./Components/Header/Header";
+import {Navbar} from "./Components/Navbar/Navbar";
+import {Profile} from "./Components/Profile/Profile";
+import {Dialogs} from "./Components/Dialogs/Dialogs";
+import {Route} from "react-router-dom";
+import {ActionsTypes, StoreType} from "./redux/state";
 
-/*type DialogsType = {
-    id: number
-    name: string
-}
-type PostsType = {
-    id: number
-    message: string
-    likesCount: number
-}
-type MessagesType = {
-    id: number
-    message: string
-}
-type ProfilePageType = {
-    posts: Array<PostsType>
-}
-type DialogPageType = {
-    messages: Array<MessagesType>
-    dialogs: Array<DialogsType>
-}
-type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogPageType
-}*/
-type StatePropsType = {
-    state: StateType
-    addPostCallback: (postMessage: string) => void
+
+type PropsType = {
+    store: StoreType
+    dispatch: (action: ActionsTypes) => void
+    /*addPostCallback: () => void
     addNewPostTextCallback: (newText: string) => void
-    addMessageCallback: (message: string) => void
-    addNewMessageTextCallBack: (newText: string) => void
+    addMessageCallback: () => void
+    addNewMessageTextCallBack: (newText: string) => void*/
+
 }
 
-const App: React.FC<StatePropsType> = (props) => {
-
+export const App: React.FC<PropsType> = (props) => {
+const state = props.store.getState()
 
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 < Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}
-                                                                  addMessageCallback={props.addMessageCallback}
-                                                                  addNewMessageTextCallBack={props.addNewMessageTextCallBack}
-                                                                  newMessageText={props.state.dialogsPage.newMessageText}/>}/>
-                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
-                                                                  addPostCallback={props.addPostCallback}
-                                                                  addNewPostTextCallback={props.addNewPostTextCallback}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs state={state.dialogsPage}
+                                                                  dispatch={props.dispatch}
+                                                                  //addMessageCallback={props.addMessageCallback}
+                                                                  //addNewMessageTextCallBack={props.addNewMessageTextCallBack}
+                                                                  newMessageText={state.dialogsPage.newMessageText}/>}/>
+                    <Route path='/profile' render={() => <Profile profilePage={state.profilePage}
+                                                                  dispatch={props.dispatch}
+                                                                  //addPostCallback={props.addPostCallback}
+                                                                  //addNewPostTextCallback={props.addNewPostTextCallback}
+                    />}/>
                 </div>
             </div>
-        </BrowserRouter>
     )
 }
 
-export default App;

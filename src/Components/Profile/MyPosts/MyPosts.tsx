@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {PostsType} from "../../../redux/state";
+import {ActionsTypes, addNewPostTextAC, addPostAC, PostsType} from "../../../redux/state";
 
 /*type PostsType = {
     id: number
@@ -11,11 +11,12 @@ import {PostsType} from "../../../redux/state";
 type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    addPostCallback: (postMessage: string) => void
-    addNewPostTextCallback: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
+    //addPostCallback: (postMessage: string) => void
+    //addNewPostTextCallback: (newText: string) => void
 }
 
-const MyPosts: React.FC<ProfilePageType> = (props) => {
+export const MyPosts: React.FC<ProfilePageType> = (props) => {
 
     let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
 
@@ -36,7 +37,8 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
     }*/
 
     const addPostHandler = () => {
-        props.addPostCallback('')
+        props.dispatch(addPostAC(props.newPostText))
+        //props.addPostCallback('')
 
     }
     /*const onChangeHandler = (postMessageRef: ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,7 +48,8 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
 
     const onChangePostHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
       let content = event.currentTarget.value
-        props.addNewPostTextCallback(content)
+        props.dispatch(addNewPostTextAC(content))
+        //props.addNewPostTextCallback(content)
     }
     return (
         <div>
@@ -66,5 +69,3 @@ const MyPosts: React.FC<ProfilePageType> = (props) => {
         </div>
     )
 }
-
-export default MyPosts
