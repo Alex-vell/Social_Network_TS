@@ -11,9 +11,7 @@ let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
             <App store={store}
-                dispatch={store.dispatch.bind(store)}
-                //addPostCallback={store.addPost.bind(store)} addNewPostTextCallback={store.addNewPostText.bind(store)}
-                 //addMessageCallback={store.addMessage.bind(store)} addNewMessageTextCallBack={store.addNewMessageText.bind(store)}
+                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>,
         document.getElementById('root')
@@ -22,7 +20,6 @@ let rerenderEntireTree = () => {
 
 rerenderEntireTree()
 store.subscribe(rerenderEntireTree)
-
 
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,14 +2,13 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogsItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {ActionsTypes, addMessageAC, addNewMessageTextAC, DialogsPageType} from "../../redux/state";
+import {ActionsTypes, DialogsPageType} from "../../redux/state";
+import {addMessageAC, addNewMessageTextAC} from "../../redux/dialog-reducer";
 
 type StateType = {
     state: DialogsPageType
     newMessageText: string
     dispatch: (action: ActionsTypes) => void
-    //addMessageCallback: (message: string) => void
-    //addNewMessageTextCallBack: (newText: string) => void
 }
 
 
@@ -21,29 +20,11 @@ export const Dialogs: React.FC<StateType> = (props) => {
 
     const addMessageHandler = () => {
         props.dispatch(addMessageAC(props.newMessageText))
-        //props.addMessageCallback('')
     }
     const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let content = event.currentTarget.value
         props.dispatch(addNewMessageTextAC(content))
-        //props.addNewMessageTextCallBack(content)
     }
-
-    /* let [title, setTitle] = useState('');*/
-    /*const addMessageHandler = () => {
-        alert(title)
-        setTitle('')
-    }
-    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(event.currentTarget.value);
-    }
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Control' && 'Enter') {
-            alert(title)
-            /!*setTitle(event.currentTarget.value);*!/
-            setTitle('')
-        }
-    }*/
 
     return (
         <div className={s.dialogs}>
