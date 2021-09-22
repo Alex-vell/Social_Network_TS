@@ -1,9 +1,23 @@
-import {ActionsTypes, DialogsPageType} from "./state";
+import {ActionsTypes, DialogsPageType} from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT';
 
-export const dialogReducer = (state: DialogsPageType, action: ActionsTypes) => {
+const initialState = {
+    dialogs: [
+        {id: 1, name: 'Alex'},
+        {id: 2, name: 'Natali'},
+        {id: 3, name: 'Anna'}
+    ],
+    messages: [
+        {id: 1, message: 'I am a developer'},
+        {id: 2, message: 'bla bla'},
+        {id: 3, message: 'la la'}
+    ],
+    newMessageText: ''
+}
+
+export const dialogReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let newMessage = {
