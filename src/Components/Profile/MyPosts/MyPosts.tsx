@@ -1,26 +1,26 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {ActionsTypes, PostsType} from "../../../redux/store";
-import {addNewPostTextAC, addPostAC} from "../../../redux/profile-reducer";
+import {PostsType} from "../../../redux/store";
 
 type ProfilePageType = {
     posts: Array<PostsType>
+    addPostCallback: (newPostText: string) => void
+    onChangeCallback: (content: string) => void
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
 }
 
 export const MyPosts: React.FC<ProfilePageType> = (props) => {
 
     let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
 
-    const addPostHandler = () => {
-        props.dispatch(addPostAC(props.newPostText))
+    const addPostHandler = (newPostText: string) => {
+        props.addPostCallback(newPostText)
     }
 
     const onChangePostHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      let content = event.currentTarget.value
-        props.dispatch(addNewPostTextAC(content))
+        let content = event.currentTarget.value
+        props.onChangeCallback(content)
     }
     return (
         <div>
@@ -30,7 +30,10 @@ export const MyPosts: React.FC<ProfilePageType> = (props) => {
                     <textarea onChange={onChangePostHandler} value={props.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={addPostHandler}>Add post</button>
+                    <button onClick={() => {
+                        addPostHandler(props.newPostText)
+                    }}>Add post
+                    </button>
                 </div>
             </div>
 
