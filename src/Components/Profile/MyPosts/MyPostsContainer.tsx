@@ -1,27 +1,37 @@
 import React from "react";
-import {StoreType} from "../../../redux/store";
 import {addNewPostTextAC, addPostAC} from "../../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {StoreContext} from "../../../StoreContext";
 
 type ProfilePageType = {
-    store: StoreType
+    //store: StoreType
 }
 
-export const MyPostsContainer: React.FC<ProfilePageType> = (props) => {
+export const MyPostsContainer: React.FC<ProfilePageType> = () => {
 
-    let state = props.store.getState()
+    return (
+        <StoreContext.Consumer>
+            {
+                (store) => {
 
-    const addPostCallback = (newPostText: string) => {
-        props.store.dispatch(addPostAC(newPostText))
-    }
+                    let state = store.getState()
 
-    const onChangeCallback = (content: string) => {
-        let action = addNewPostTextAC(content)
-        props.store.dispatch(action)
-    }
-    return (<MyPosts onChangeCallback={onChangeCallback}
-                     addPostCallback={addPostCallback}
-                     posts={state.profilePage.posts}
-                     newPostText={state.profilePage.newPostText}/>
+                    const addPostCallback = (newPostText: string) => {
+                        store.dispatch(addPostAC(newPostText))
+                    }
+
+                    const onChangeCallback = (content: string) => {
+                        let action = addNewPostTextAC(content)
+                        store.dispatch(action)
+                    }
+
+                    return <MyPosts onChangeCallback={onChangeCallback}
+                                    addPostCallback={addPostCallback}
+                                    posts={state.profilePage.posts}
+                                    newPostText={state.profilePage.newPostText}/>
+                }
+            }
+        </StoreContext.Consumer>
+
     )
 }
