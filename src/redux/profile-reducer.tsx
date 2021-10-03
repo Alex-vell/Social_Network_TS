@@ -1,30 +1,62 @@
-import {ActionsTypes, ProfilePageType} from "./store";
+import {ActionsTypes} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_POST_TEXT = 'ADD-NEW-POST-TEXT';
+
+export type PostsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    newPostText: string
+}
+
+/*export type InitialStateProfileReducerType = {
+    posts: Array<PostsType>
+    newPostText: string
+}*/
+
+export type InitialStateProfileReducerType = typeof initialState
 
 const initialState = {
     posts: [
         {id: 1, message: 'Hey la lay', likesCount: 15},
         {id: 2, message: 'Bla bla', likesCount: 11}
-    ],
+    ] as Array<PostsType>,
     newPostText: ''
-}
+} as ProfilePageType
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ActionsTypes): InitialStateProfileReducerType => {
+
     switch (action.type) {
         case ADD_POST:
-            let newPost = {
+            let newPost = state.newPostText /*{
                 id: new Date().getDate(),
                 message: state.newPostText,
                 likesCount: 0
+            }*/
+            /*let newState = {...state}*/
+            return {
+                ...state,
+                posts: [...state.posts, {
+                    id: new Date().getDate(),
+                    message: newPost,
+                    likesCount: 0
+                },
+                ],
+                newPostText: '',
             }
-            state.posts.push(newPost)
-            state.newPostText = ''
-            return state
+
         case ADD_NEW_POST_TEXT:
-            state.newPostText = action.newPostMessageText
-            return state
+            /*let newState = {...state}*/
+            /*newState.posts = [...state.posts]*/
+            return {
+                ...state,
+                newPostText: action.newPostMessageText
+            }
+
         default:
             return state
     }

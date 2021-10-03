@@ -1,17 +1,18 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {PostsType} from "../../../redux/store";
+/*import {PostsType} from "../../../redux/store";*/
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type ProfilePageType = {
+/*type ProfilePageType = {
     posts: Array<PostsType>
     addPostCallback: (newPostText: string) => void
     onChangeCallback: (content: string) => void
     newPostText: string
-}
+}*/
 
-export const MyPosts: React.FC<ProfilePageType> = (props) => {
-
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+debugger
     let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
 
     const addPostHandler = (newPostText: string) => {

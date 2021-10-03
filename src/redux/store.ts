@@ -1,25 +1,26 @@
 import {addNewPostTextAC, addPostAC, profileReducer} from "./profile-reducer";
 import {addMessageAC, addNewMessageTextAC, dialogReducer} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
+/*import {StoreType} from "./redux-store";*/
 
-export type DialogsType = {
+type DialogsType = {
     id: number
     name: string
 }
-export type PostsType = {
+type PostsType = {
     id: number
     message: string
     likesCount: number
 }
-export type MessagesType = {
+type MessagesType = {
     id: number
     message: string
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
     newMessageText: string

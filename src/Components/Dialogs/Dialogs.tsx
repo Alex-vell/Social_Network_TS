@@ -2,15 +2,10 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogsItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type StateType = {
-    addMessageCallback: (newMessageText: string) => void
-    onChangeMessageCallback: (content: string) => void
-    dialogsPage: DialogsPageType
-}
 
-export const Dialogs: React.FC<StateType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     let state = props.dialogsPage
 

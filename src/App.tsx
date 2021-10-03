@@ -7,13 +7,13 @@ import {Route} from "react-router-dom";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {Settings} from "./Components/Settings/Settings";
 
-type PropsType = {
+/*type PropsType = {
     //store: StoreType
     //dispatch: (action: ActionsTypes) => void
-}
+}*/
 
-export const App: React.FC<PropsType> = (props) => {
-
+export const App: React.FC/*<PropsType>*/ = (props) => {
+    console.log(React.version);
     return (
         <div className='app-wrapper'>
             < Header/>
