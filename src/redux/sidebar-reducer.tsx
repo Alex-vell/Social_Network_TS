@@ -1,4 +1,6 @@
-import {ActionsTypes, SidebarType} from "./store";
+import {ActionsTypes} from "./store";
+
+export type SidebarType = {}
 
 const initialState = {}
 

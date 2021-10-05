@@ -1,7 +1,7 @@
 import {addNewPostTextAC, addPostAC, profileReducer} from "./profile-reducer";
 import {addMessageAC, addNewMessageTextAC, dialogReducer} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
-/*import {StoreType} from "./redux-store";*/
+import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
 
 type DialogsType = {
     id: number
@@ -25,14 +25,14 @@ type DialogsPageType = {
     dialogs: Array<DialogsType>
     newMessageText: string
 }
-export type SidebarType = {}
-export type StateType = {
+type SidebarType = {}
+type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
 
-export type StoreType = {
+type StoreType = {
     _state: StateType
     subscribe: (callback: () => void) => void
     _onChangeRender: (state: StateType) => void
@@ -45,8 +45,11 @@ export type ActionsTypes =
     | ReturnType<typeof addNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewMessageTextAC>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>
 
-export const store: StoreType = {
+ const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -68,7 +71,7 @@ export const store: StoreType = {
             ],
             newMessageText: ''
         },
-        sidebar: {}
+        sidebar: {},
     },
     _onChangeRender(state: StateType) {
         console.log('RERENDER')
