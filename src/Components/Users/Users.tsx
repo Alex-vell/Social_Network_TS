@@ -7,38 +7,15 @@ import axios from "axios";
 
 export class Users extends React.Component<UsersPropsType> {
 
-    constructor(props:UsersPropsType)  {
-        super(props);
+    componentDidMount() {
+        alert('componentDidMount')
         axios.get<any>('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
-        /*props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://icon-library.com/images/avatar-icon-free/avatar-icon-free-12.jpg',
-                followed: true,
-                fullName: 'Alex',
-                status: 'I am a developer',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                photoUrl: 'https://icon-library.com/images/avatar-icon-free/avatar-icon-free-12.jpg',
-                followed: false,
-                fullName: 'Paul',
-                status: 'I am a designer',
-                location: {city: 'Paris', country: 'France'}
-            },
-            {
-                id: 3,
-                photoUrl: 'https://icon-library.com/images/avatar-icon-free/avatar-icon-free-12.jpg',
-                followed: true,
-                fullName: 'John',
-                status: 'I am a manager',
-                location: {city: 'Los Angeles', country: 'USA'}
-            }
-        ])*/
+    }
+    componentWillUnmount() {
+        alert('componentWillUnmount')
     }
 
     render() {
