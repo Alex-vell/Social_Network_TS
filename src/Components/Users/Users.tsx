@@ -8,38 +8,67 @@ import axios from "axios";
 export class Users extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        alert('componentDidMount')
-        axios.get<any>('https://social-network.samuraijs.com/api/1.0/users')
+        //alert('componentDidMount')
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
+
     componentWillUnmount() {
-        alert('componentWillUnmount')
+        //alert('componentWillUnmount')
     }
 
     render() {
+
+        let pages = []
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        for (let i = 1; i <= pagesCount; i++){
+            pages.push(i)
+        }
+
+
         return <div>
+            <div>
+                {pages.map(p => {
+                    return <span className={this.props.currentPage === p && styles.selectPageActive
+                        ? styles.selectPageActive
+                        : styles.selectPage}
+                                 key={p}
+                    onClick={(event =>this.onPageChanged(p) )}>{p}</span>
+                })}
+
+            </div>
             {
-                this.props.users.users.map(f => <div key={f.id}>
+                this.props.users.users.map(u => <div key={u.id}>
         <span>
           <div>
-            <img src={photoAvatar} className={styles.userPhoto}/> {/*f.photos.small != null ? f.photos.small : photoAvatar*/}
+            <img src={`${u.photos.small != null ? u.photos.small : photoAvatar}`}
+                 className={styles.userPhoto}/> {/*u.photos.small != null ? u.photos.small : photoAvatar*/}
           </div>
           <div>
-            {f.followed
-                ? <button onClick={() => this.props.follow(f.id)}>follow</button>
-                : <button onClick={() => this.props.unfollow(f.id)}>unfollow</button>}
+            {u.followed
+                ? <button onClick={() => this.props.follow(u.id)}>follow</button>
+                : <button onClick={() => this.props.unfollow(u.id)}>unfollow</button>}
           </div>
         </span>
                     <span>
           <span>
-            <div>{f.name}</div>
-            <div>{f.status}</div>
+            <div>{u.name}</div>
+            <div>{u.status}</div>
           </span>
           <span>
-            <div>{'f.location.country'}</div>
-            <div>{'f.location.city'}</div>
+            <div>{'u.location.country'}</div>
+            <div>{'u.location.city'}</div>
           </span>
         </span>
                 </div>)
