@@ -1,8 +1,6 @@
 import {connect} from "react-redux";
-//import {Users} from "./Users";
 import {
     followAC,
-    InitialStateUsersReducerType,
     setCurrentPageAC, setTotalUsersCountAC,
     setUsersAC,
     unFollowAC,
@@ -10,14 +8,48 @@ import {
 } from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
+import React from "react";
+import axios from "axios";
 import {Users} from "./Users";
 
 
-/*type mapStateToPropsType = {
-    users: InitialStateUsersReducerType
-    pageSize: number
-    totalUsersCount: number
-}*/
+export class UsersContainer extends React.Component<UsersPropsType> {
+
+    componentDidMount() {
+        //alert('componentDidMount')
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    componentWillUnmount() {
+        //alert('componentWillUnmount')
+    }
+
+    render() {
+
+        return <div>
+            <Users follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+                   users={this.props.users}
+                   currentPage={this.props.currentPage}
+                   totalUsersCount={this.props.totalUsersCount}
+                   pageSize={this.props.pageSize}
+                   onPageChangedCallback={this.onPageChanged}/>
+        </div>
+    }
+}
+
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type mapDispatchToPropsType = {
@@ -57,4 +89,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

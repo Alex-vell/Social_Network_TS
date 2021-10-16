@@ -1,55 +1,40 @@
 import React from "react";
 import styles from './Users.module.css'
-import {UsersPropsType} from "./UsersContainer";
-import photoAvatar from '../../assets/images/photoAvatar.jpg'
-import axios from "axios";
+import photoAvatar from "../../assets/images/photoAvatar.jpg";
+import {InitialStateUsersReducerType} from "../../redux/users-reducer";
 
 
-export class Users extends React.Component<UsersPropsType> {
+type UsersType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    users: InitialStateUsersReducerType
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+    onPageChangedCallback: (pageNumber: number) => void
+}
 
-    componentDidMount() {
-        //alert('componentDidMount')
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
+export const Users = (props: UsersType) => {
+
+    let pages = []
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
+    return <div>
+        <div>
+            {pages.map(p => {
+                return <span className={props.currentPage === p && styles.selectPageActive
+                    ? styles.selectPageActive
+                    : styles.selectPage}
+                             key={p}
+                             onClick={(event => props.onPageChangedCallback(p))}>{p}</span>
+            })}
 
-    componentWillUnmount() {
-        //alert('componentWillUnmount')
-    }
-
-    render() {
-
-        let pages = []
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        for (let i = 1; i <= pagesCount; i++){
-            pages.push(i)
-        }
-
-
-        return <div>
-            <div>
-                {pages.map(p => {
-                    return <span className={this.props.currentPage === p && styles.selectPageActive
-                        ? styles.selectPageActive
-                        : styles.selectPage}
-                                 key={p}
-                    onClick={(event =>this.onPageChanged(p) )}>{p}</span>
-                })}
-
-            </div>
-            {
-                this.props.users.users.map(u => <div key={u.id}>
+        </div>
+        {
+            props.users.users.map(u => <div key={u.id}>
         <span>
           <div>
             <img src={`${u.photos.small != null ? u.photos.small : photoAvatar}`}
@@ -57,11 +42,11 @@ export class Users extends React.Component<UsersPropsType> {
           </div>
           <div>
             {u.followed
-                ? <button onClick={() => this.props.follow(u.id)}>follow</button>
-                : <button onClick={() => this.props.unfollow(u.id)}>unfollow</button>}
+                ? <button onClick={() => props.follow(u.id)}>follow</button>
+                : <button onClick={() => props.unfollow(u.id)}>unfollow</button>}
           </div>
         </span>
-                    <span>
+                <span>
           <span>
             <div>{u.name}</div>
             <div>{u.status}</div>
@@ -71,8 +56,7 @@ export class Users extends React.Component<UsersPropsType> {
             <div>{'u.location.city'}</div>
           </span>
         </span>
-                </div>)
-            }
-        </div>
-    }
+            </div>)
+        }
+    </div>
 }
