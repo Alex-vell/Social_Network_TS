@@ -2,6 +2,7 @@ import {ActionsTypes} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_POST_TEXT = 'ADD-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export type PostsType = {
     id: number
@@ -11,6 +12,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
+    profile: any | null
 }
 
 /*export type InitialStateProfileReducerType = {
@@ -25,7 +27,8 @@ const initialState = {
         {id: 1, message: 'Hey la lay', likesCount: 15},
         {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
-    newPostText: ''
+    newPostText: '',
+    profile: null
 } as ProfilePageType
 
 export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ActionsTypes): InitialStateProfileReducerType => {
@@ -57,6 +60,12 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
                 newPostText: action.newPostMessageText
             }
 
+        case SET_USER_PROFILE: {
+            return {
+                ...state, profile: action.profile
+            }
+        }
+
         default:
             return state
     }
@@ -72,5 +81,11 @@ export const addNewPostTextAC = (newPostMessageText: string) => {
     return {
         type: ADD_NEW_POST_TEXT,
         newPostMessageText: newPostMessageText
+    } as const
+}
+export const setUserProfile = (profile: any | null) => {
+    return {
+        type: SET_USER_PROFILE,
+        profile
     } as const
 }

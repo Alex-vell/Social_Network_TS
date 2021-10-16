@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Users.module.css'
 import photoAvatar from "../../assets/images/photoAvatar.jpg";
 import {InitialStateUsersReducerType} from "../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
 
 
 type UsersType = {
@@ -37,8 +38,8 @@ export const Users = (props: UsersType) => {
             props.users.users.map(u => <div key={u.id}>
         <span>
           <div>
-            <img src={`${u.photos.small != null ? u.photos.small : photoAvatar}`}
-                 className={styles.userPhoto}/> {/*u.photos.small != null ? u.photos.small : photoAvatar*/}
+            <NavLink to={'./profile'}> <img src={`${u.photos.small != null ? u.photos.small : photoAvatar}`}
+                    className={styles.userPhoto}/></NavLink>
           </div>
           <div>
             {u.followed

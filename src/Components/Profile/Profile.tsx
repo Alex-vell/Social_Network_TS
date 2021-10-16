@@ -3,13 +3,13 @@ import {ProfileContent} from "./ProfileContent/ProfileContent";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 type StateType = {
-   // store: StoreType
+   profile: any | null
 }
 
 export const Profile: React.FC<StateType> = (props) => {
     return (
         <div>
-            <ProfileContent/>
+            <ProfileContent profile={props.profile} />
             <MyPostsContainer //store={props.store}
             />
         </div>

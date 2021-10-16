@@ -1,4 +1,4 @@
-import {addNewPostTextAC, addPostAC, profileReducer} from "./profile-reducer";
+import {addNewPostTextAC, addPostAC, profileReducer, setUserProfile} from "./profile-reducer";
 import {addMessageAC, addNewMessageTextAC, dialogReducer} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {
@@ -10,7 +10,7 @@ import {
     unFollow
 } from "./users-reducer";
 
-type DialogsType = {
+/*type DialogsType = {
     id: number
     name: string
 }
@@ -45,7 +45,7 @@ type StoreType = {
     _onChangeRender: (state: StateType) => void
     getState: () => StateType
     dispatch: (action: ActionsTypes) => void
-}
+}*/
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -58,7 +58,9 @@ export type ActionsTypes =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
+/*
 const store: StoreType = {
     _state: {
         profilePage: {
@@ -100,4 +102,4 @@ const store: StoreType = {
 
         this._onChangeRender(this._state)
     }
-}
+}*/
