@@ -3,7 +3,7 @@ import {ProfileContent} from "./ProfileContent/ProfileContent";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 type StateType = {
-   profile: any | null
+   profile: any
 }
 
 export const Profile: React.FC<StateType> = (props) => {

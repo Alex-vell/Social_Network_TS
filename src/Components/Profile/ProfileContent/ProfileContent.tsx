@@ -3,7 +3,7 @@ import s from './ProfileContent.module.css'
 import {Preloader} from "../../general/Preloader/Preloader";
 
 type profileContentType = {
-    profile: any | null
+    profile: any
 }
 
 export const ProfileContent: React.FC<profileContentType> = (props) => {

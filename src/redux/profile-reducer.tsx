@@ -12,7 +12,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: any | null
+    profile: any
 }
 
 /*export type InitialStateProfileReducerType = {
@@ -83,7 +83,7 @@ export const addNewPostTextAC = (newPostMessageText: string) => {
         newPostMessageText: newPostMessageText
     } as const
 }
-export const setUserProfile = (profile: any | null) => {
+export const setUserProfile = (profile: any) => {
     return {
         type: SET_USER_PROFILE,
         profile
