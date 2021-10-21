@@ -12,7 +12,6 @@ import {MyPostsPropsType} from "./MyPostsContainer";
 }*/
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-debugger
     let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
 
     const addPostHandler = (newPostText: string) => {

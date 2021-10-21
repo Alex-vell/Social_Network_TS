@@ -9,6 +9,7 @@ import {
     toggleIsFetching,
     unFollow
 } from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 /*type DialogsType = {
     id: number
@@ -59,6 +60,7 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
 
 /*
 const store: StoreType = {

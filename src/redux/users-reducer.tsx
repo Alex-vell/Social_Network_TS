@@ -11,12 +11,17 @@ type locationType = {
     city: string
     country: string
 }
+type PhotoType = {
+    small: string | null
+    large: string | null
+}
 export type UserType = {
     id: number
-    photos: string
-    followed: boolean
-    name: string,
+    name: string
     status: string
+    photos: PhotoType
+    followed: boolean
+
     //location: locationType
 }
 /*export type InitialStateUsersReducerType = typeof initialState*/
