@@ -1,4 +1,5 @@
-import {ActionsTypes} from "./store";
+import {ActionsTypes} from "./ActionTypes";
+
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT';

@@ -1,11 +1,10 @@
-import {ActionsTypes} from "./store";
+import {ActionsTypes} from "./ActionTypes";
 
-const SET_USER_DATA = 'SET_USER_DATA'
-
+const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
 export type DataType = {
-    id: number | null
     email: string | null
+    id: number | null
     login: string | null
 }
 export type InitialStateAuthReducerType = {
@@ -14,11 +13,10 @@ export type InitialStateAuthReducerType = {
     //isFetching: boolean
 }
 
-
 const initialState = {
     data: {
-        id: null,
         email: null,
+        id: null,
         login: null,
     },
     isAuth: false,
@@ -28,10 +26,11 @@ const initialState = {
 
 export const authReducer = (state: InitialStateAuthReducerType = initialState, action: ActionsTypes): InitialStateAuthReducerType => {
     switch (action.type) {
-        case SET_USER_DATA:
+        case SET_AUTH_USER_DATA:
             return {
+
                 ...state,
-                ...action.data,
+                data: {...action.data},
                 isAuth: true
             }
 
@@ -42,16 +41,10 @@ export const authReducer = (state: InitialStateAuthReducerType = initialState, a
     }
 }
 
-export const setAuthUserData = (data: DataType, id: number | null,
-                                email: string | null,
-                                login: string | null,
-                                isAuth: boolean,) => {
+export const setAuthUserData = (data: DataType, isAuth: boolean,) => {
     return {
-        type: SET_USER_DATA,
+        type: SET_AUTH_USER_DATA,
         data,
-        id,
-        email,
-        login,
         isAuth,
     } as const
 }

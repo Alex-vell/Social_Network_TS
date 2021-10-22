@@ -1,4 +1,5 @@
-import {ActionsTypes} from "./store";
+import {ActionsTypes} from "./ActionTypes";
+
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'

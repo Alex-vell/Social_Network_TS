@@ -1,4 +1,5 @@
-import {ActionsTypes} from "./store";
+import {ActionsTypes} from "./ActionTypes";
+
 
 export type SidebarType = {}
 

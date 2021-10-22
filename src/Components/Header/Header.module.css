@@ -14,6 +14,10 @@
 
 .loginBlock {
     float: right;
+    font-weight: bold;
+    text-decoration: none;
+    color: brown;
+    margin-right: 10px;
 }
 
 .loginBlock a {

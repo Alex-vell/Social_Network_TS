@@ -48,19 +48,7 @@ type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }*/
 
-export type ActionsTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof addNewPostTextAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof addNewMessageTextAC>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setAuthUserData>
+
 
 /*
 const store: StoreType = {

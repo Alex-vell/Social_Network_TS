@@ -7,12 +7,13 @@ import {DataType, setAuthUserData} from "../../redux/auth-reducer";
 
 
 type ResponseAuthType = {
+    fieldsErrors: []
+    messages: []
     resultCode: number
-    messages: string
     data: DataType
     isAuth: boolean
 }
-export type HeaderPropsType = mapStateToPropsType & mapDispatchToPropsType
+
 
 export class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
@@ -22,35 +23,29 @@ export class HeaderContainer extends React.Component<HeaderPropsType> {
             .then(response => {
                 debugger
                 if (response.data.resultCode === 0) {
-                    // let {id, email, login, isAuth} = response.data.data
-                    this.props.setAuthUserData(response.data.data,
-                        response.data.data.id,
-                        response.data.data.email,
-                        response.data.data.login,
-                        response.data.isAuth)
+                    this.props.setAuthUserData(response.data.data, response.data.isAuth)
                 }
             })
     }
 
     render() {
+
         return <Header {...this.props}/>
     }
 }
 
+
+export type HeaderPropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
-
 type mapDispatchToPropsType = {
-    setAuthUserData: (data: DataType, id: number | null,
-                      email: string | null,
-                      login: string | null,
-                      isAuth: boolean) => void
-
+    setAuthUserData: (data: DataType, isAuth: boolean) => void
 }
 
-
-const mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth,
-    login: state.auth.data.login
-})
+const mapStateToProps = (state: AppStateType) => {
+    return {
+        isAuth: state.auth.isAuth,
+        login: state.auth.data.login
+    }
+}
 
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
