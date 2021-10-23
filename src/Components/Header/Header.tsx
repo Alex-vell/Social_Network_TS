@@ -9,8 +9,6 @@ type HeaderType = {
 }
 
 export const Header: React.FC<HeaderType> = (props) => {
-
-    debugger
     return (
         <header className={s.header}>
             <img

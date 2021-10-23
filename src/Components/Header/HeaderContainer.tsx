@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {DataType, setAuthUserData} from "../../redux/auth-reducer";
+import {authAPI} from "../../api/api";
 
 
 type ResponseAuthType = {
@@ -17,15 +18,14 @@ type ResponseAuthType = {
 
 export class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
-        axios.get<ResponseAuthType>('https://social-network.samuraijs.com/api/1.0/auth/me', {
+        /*axios.get<ResponseAuthType>('https://social-network.samuraijs.com/api/1.0/auth/me', {
             withCredentials: true
+        })*/
+        authAPI.getAuth().then(data => {
+            if (data.resultCode === 0) {
+                this.props.setAuthUserData(data.data, data.isAuth)
+            }
         })
-            .then(response => {
-                debugger
-                if (response.data.resultCode === 0) {
-                    this.props.setAuthUserData(response.data.data, response.data.isAuth)
-                }
-            })
     }
 
     render() {

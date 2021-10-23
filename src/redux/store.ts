@@ -2,12 +2,12 @@ import {addNewPostTextAC, addPostAC, profileReducer, setUserProfile} from "./pro
 import {addMessageAC, addNewMessageTextAC, dialogReducer} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {
-    follow,
+    setFollow,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
-    unFollow
+    setToggleIsFetching,
+    setUnFollow
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
 

@@ -17,9 +17,9 @@ type PhotoType = {
     large: string | null
 }
 export type UserType = {
-    id: number
-    name: string
-    status: string
+    id: number | null
+    name: string | null
+    status: string | null
     photos: PhotoType
     followed: boolean
 
@@ -36,8 +36,19 @@ export type InitialStateUsersReducerType = {
 
 
 const initialState = {
-    users: [],
-    pageSize: 5,
+    users: [
+        {
+            name: null,
+            id: null,
+            photos: {
+                small: null,
+                large: null
+            },
+            status: null,
+            followed: false
+        }
+    ],
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true
@@ -51,7 +62,7 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
                 ...state,
                 users: state.users.map(f => {
                     if (f.id === action.userId) {
-                        return {...f, followed: false}
+                        return {...f, followed: true}
                     }
                     return f
                 })
@@ -62,7 +73,7 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
                 ...state,
                 users: state.users.map(f => {
                     if (f.id === action.userId) {
-                        return {...f, followed: true}
+                        return {...f, followed: false}
                     }
                     return f
                 })
@@ -92,13 +103,13 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
     }
 }
 
-export const follow = (userId: number) => {
+export const setFollow = (userId: number | null) => {
     return {
         type: FOLLOW,
         userId
     } as const
 }
-export const unFollow = (userId: number) => {
+export const setUnFollow = (userId: number | null) => {
     return {
         type: UNFOLLOW,
         userId
@@ -122,7 +133,7 @@ export const setTotalUsersCount = (totalCount: number) => {
         totalCount
     } as const
 }
-export const toggleIsFetching = (isFetching: boolean) => {
+export const setToggleIsFetching = (isFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching

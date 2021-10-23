@@ -49,7 +49,6 @@ type ResponseProfileType = {
 export class  ProfileContainer extends React.Component<ProfileContainerStateType>{
 
     componentDidMount() {
-        debugger
         let userID = this.props.match.params.userId
         if (!userID){
             userID = '16626'

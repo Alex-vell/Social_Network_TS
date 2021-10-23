@@ -3,17 +3,31 @@ import styles from './Users.module.css'
 import photoAvatar from "../../assets/images/photoAvatar.jpg";
 import {InitialStateUsersReducerType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {followAPI} from "../../api/api";
 
 
 type UsersType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    follow: (userId: number | null) => void
+    unFollow: (userId: number | null) => void
     users: InitialStateUsersReducerType
     currentPage: number
     totalUsersCount: number
     pageSize: number
     onPageChangedCallback: (pageNumber: number) => void
 }
+
+type ResponseDeleteType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
+type ResponsePostType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
+
 
 export const Users = (props: UsersType) => {
 
@@ -38,13 +52,46 @@ export const Users = (props: UsersType) => {
             props.users.users.map(u => <div key={u.id}>
         <span>
           <div>
-            <NavLink to={'./profile/' + u.id}> <img src={`${u.photos.small !== null ? u.photos.small : photoAvatar}`}
-                                                    className={styles.userPhoto}/></NavLink>
+            <NavLink to={'./profile/' + u.id}> <img src={u.photos.small !== null ? u.photos.small : photoAvatar}
+                                                    className={styles.userPhoto} alt={'User Photo'}/></NavLink>
           </div>
           <div>
             {u.followed
-                ? <button onClick={() => props.follow(u.id)}>follow</button>
-                : <button onClick={() => props.unfollow(u.id)}>unfollow</button>}
+                ? <button onClick={() => {
+
+                    /*axios.delete<ResponseDeleteType>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                        withCredentials: true,
+                        headers: {
+                            'API-KEY': '724c553c-960a-4a5c-aa67-c9d1bcd4ed73'
+                        }
+                    })*/
+
+                    followAPI.unFollowUser(u.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.unFollow(u.id)
+                        }
+                    })
+
+
+                }}>Unfollow</button>
+
+                : <button onClick={() => {
+
+                    /*axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                        withCredentials: true,
+                        headers: {
+                            'API-KEY': '724c553c-960a-4a5c-aa67-c9d1bcd4ed73'
+                        }
+                    })*/
+
+                    followAPI.followUser(u.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.follow(u.id)
+                        }
+                    })
+
+
+                }}>Follow</button>}
           </div>
         </span>
                 <span>

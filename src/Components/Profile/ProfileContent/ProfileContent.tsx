@@ -8,7 +8,6 @@ type profileContentType = {
 }
 
 export const ProfileContent: React.FC<profileContentType> = (props) => {
-    debugger
     if (!props.profile){
         return <Preloader/>
     }
