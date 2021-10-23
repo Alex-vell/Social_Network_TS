@@ -3,7 +3,6 @@ import styles from './Users.module.css'
 import photoAvatar from "../../assets/images/photoAvatar.jpg";
 import {InitialStateUsersReducerType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {followAPI} from "../../api/api";
 
 
@@ -15,17 +14,6 @@ type UsersType = {
     totalUsersCount: number
     pageSize: number
     onPageChangedCallback: (pageNumber: number) => void
-}
-
-type ResponseDeleteType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
-type ResponsePostType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
 }
 
 
@@ -59,13 +47,6 @@ export const Users = (props: UsersType) => {
             {u.followed
                 ? <button onClick={() => {
 
-                    /*axios.delete<ResponseDeleteType>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                        withCredentials: true,
-                        headers: {
-                            'API-KEY': '724c553c-960a-4a5c-aa67-c9d1bcd4ed73'
-                        }
-                    })*/
-
                     followAPI.unFollowUser(u.id).then(data => {
                         if (data.resultCode === 0) {
                             props.unFollow(u.id)
@@ -76,13 +57,6 @@ export const Users = (props: UsersType) => {
                 }}>Unfollow</button>
 
                 : <button onClick={() => {
-
-                    /*axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                        withCredentials: true,
-                        headers: {
-                            'API-KEY': '724c553c-960a-4a5c-aa67-c9d1bcd4ed73'
-                        }
-                    })*/
 
                     followAPI.followUser(u.id).then(data => {
                         if (data.resultCode === 0) {

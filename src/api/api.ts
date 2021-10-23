@@ -25,6 +25,28 @@ type ResponsePostType = {
     messages: Array<string>
     data: {}
 }
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+type ResponseProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
 
 
 const instance = axios.create({
@@ -59,3 +81,12 @@ export const followAPI = {
             .then(response => response.data)
     }
 }
+
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get<ResponseProfileType>(`profile/`+ userId)
+            .then(response => response.data)
+    }
+}
+
+

@@ -16,7 +16,6 @@ import {usersAPI} from "../../api/api";
 export class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        //alert('componentDidMount')
         this.props.toggleIsFetching(true)
 
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
@@ -37,7 +36,7 @@ export class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     componentWillUnmount() {
-        //alert('componentWillUnmount')
+
     }
 
     render() {
