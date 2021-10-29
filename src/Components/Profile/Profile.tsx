@@ -7,10 +7,11 @@ type StateType = {
 }
 
 export const Profile: React.FC<StateType> = (props) => {
+
     return (
         <div>
             <ProfileContent profile={props.profile} />
-            <MyPostsContainer //store={props.store}
+            <MyPostsContainer
             />
         </div>
     )

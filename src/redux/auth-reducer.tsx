@@ -1,4 +1,5 @@
 import {ActionsTypes} from "./ActionTypes";
+import {authAPI} from "../api/api";
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
@@ -48,5 +49,21 @@ export const setAuthUserData = (data: DataType, isAuth: boolean,) => {
         isAuth,
     } as const
 }
+
+//Thunk creator
+
+export const getAuthUser = () => {
+    return (dispatch: any) => {
+        authAPI.me().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(response.data.data, response.data.isAuth))
+            }
+        })
+    }
+}
+
+
+
+
 
 

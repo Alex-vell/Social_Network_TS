@@ -4,33 +4,9 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 
-/*export const DialogsContainer: React.FC<DialogsContainerType> = () => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-
-                    let state = store.getState().dialogsPage
-
-                    const addMessageCallback = (newMessageText: string) => {
-                        store.dispatch(addMessageAC(newMessageText))
-                    }
-                    const onChangeMessageCallback = (content: string) => {
-                        store.dispatch(addNewMessageTextAC(content))
-                    }
-
-                    return <Dialogs addMessageCallback={addMessageCallback}
-                                    onChangeMessageCallback={onChangeMessageCallback}
-                                    dialogsPage={state}/>
-                }
-            }
-        </StoreContext.Consumer>
-
-    )
-}*/
-
 type MapStateToPropsType = {
     dialogsPage: InitialStateDialogReducerType
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     addMessageCallback: (newMessageText: string) => void
@@ -41,7 +17,8 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

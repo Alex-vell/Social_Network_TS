@@ -177,8 +177,8 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 export const unFollow = (userId: number | null) => {
     return (dispatch: any) => {
         dispatch(toggleFollowingInProgress(true, userId))
-        usersAPI.unFollowUser(userId).then(data => {
-            if (data.resultCode === 0) {
+        usersAPI.unFollowUser(userId).then(response => {
+            if (response.data.resultCode === 0) {
                 dispatch(setUnFollow(userId))
             }
             dispatch(toggleFollowingInProgress(false, userId))
@@ -189,8 +189,8 @@ export const unFollow = (userId: number | null) => {
 export const follow = (userId: number | null) => {
     return (dispatch: any) => {
         dispatch(toggleFollowingInProgress(true, userId))
-        usersAPI.followUser(userId).then(data => {
-            if (data.resultCode === 0) {
+        usersAPI.followUser(userId).then(response => {
+            if (response.data.resultCode === 0) {
                 dispatch(setFollow(userId))
             }
             dispatch(toggleFollowingInProgress(false, userId))

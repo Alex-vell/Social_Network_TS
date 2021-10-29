@@ -1,4 +1,5 @@
 import {ActionsTypes} from "./ActionTypes";
+import {usersAPI} from "../api/api";
 
 
 const ADD_POST = 'ADD-POST';
@@ -16,11 +17,6 @@ export type ProfilePageType = {
     profile: any
 }
 
-/*export type InitialStateProfileReducerType = {
-    posts: Array<PostsType>
-    newPostText: string
-}*/
-
 export type InitialStateProfileReducerType = typeof initialState
 
 const initialState = {
@@ -36,12 +32,7 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
 
     switch (action.type) {
         case ADD_POST:
-            let newPost = state.newPostText /*{
-                id: new Date().getDate(),
-                message: state.newPostText,
-                likesCount: 0
-            }*/
-            /*let newState = {...state}*/
+            let newPost = state.newPostText
             return {
                 ...state,
                 posts: [...state.posts, {
@@ -54,8 +45,6 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
             }
 
         case ADD_NEW_POST_TEXT:
-            /*let newState = {...state}*/
-            /*newState.posts = [...state.posts]*/
             return {
                 ...state,
                 newPostText: action.newPostMessageText
@@ -90,3 +79,14 @@ export const setUserProfile = (profile: any) => {
         profile
     } as const
 }
+
+//Thunk creator
+
+export const getUserProfile = (userId: string) => {
+    return (dispatch: any) => {
+        usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+    }
+}
+
