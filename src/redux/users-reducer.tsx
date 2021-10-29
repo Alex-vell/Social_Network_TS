@@ -1,4 +1,5 @@
 import {ActionsTypes} from "./ActionTypes";
+import {usersAPI} from "../api/api";
 
 
 const FOLLOW = 'FOLLOW'
@@ -50,7 +51,7 @@ const initialState = {
             followed: false
         }
     ],
-    pageSize: 10,
+    pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
@@ -158,4 +159,44 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number | 
         userId,
     } as const
 }
+
+//Thunk Creator
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(setToggleIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(setToggleIsFetching(false))
+        })
+    }
+}
+
+export const unFollow = (userId: number | null) => {
+    return (dispatch: any) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.unFollowUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUnFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }
+}
+
+export const follow = (userId: number | null) => {
+    return (dispatch: any) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.followUser(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        })
+    }
+}
+
+
 
