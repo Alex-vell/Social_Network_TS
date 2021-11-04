@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileContent.module.css'
 import {Preloader} from "../../general/Preloader/Preloader";
 import photoAvatar from "../../../assets/images/photoAvatar.jpg";
+import {ProfileStatus} from "./ProfileStatus";
 
 type profileContentType = {
     profile: any
@@ -18,6 +19,10 @@ export const ProfileContent: React.FC<profileContentType> = (props) => {
             </div>
             <div>
                 <img className={s.userPhotoImg} src={props.profile.photos.large !== null ? props.profile.photos.large : photoAvatar} alt='Photo'/>
+
+                <ProfileStatus status={'We fly!!!'}/>
+
+
                 <div>Full name: {props.profile.fullName}</div>
                 {props.profile.lookingForAJob ? <div>looking for a job</div> : '' }
                 <div>Contacts:</div>
