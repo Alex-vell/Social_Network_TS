@@ -16,12 +16,12 @@ export const Navbar: React.FC<navbarPropsType> = () => {
             <div className={s.item}>
                 <NavLink to='/users' activeClassName={s.active}>Users</NavLink>
             </div>
-            <div className={s.item}>
+           {/* <div className={s.item}>
                 <NavLink to='/news' activeClassName={s.active}>News</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to='/music' activeClassName={s.active}>Music</NavLink>
-            </div>
+            </div>*/}
             <div className={s.item}>
                 <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
             </div>

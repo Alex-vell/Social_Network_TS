@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./ActionTypes";
 import {authAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
@@ -53,7 +54,7 @@ export const setAuthUserData = (data: DataType, isAuth: boolean,) => {
 //Thunk creator
 
 export const getAuthUser = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData(response.data.data, response.data.isAuth))

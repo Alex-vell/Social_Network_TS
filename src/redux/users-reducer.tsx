@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./ActionTypes";
 import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 const FOLLOW = 'FOLLOW'
@@ -163,7 +164,7 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number | 
 //Thunk Creator
 
 export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         dispatch(setToggleIsFetching(true))
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
@@ -175,7 +176,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 
 export const unFollow = (userId: number | null) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
         usersAPI.unFollowUser(userId).then(response => {
             if (response.data.resultCode === 0) {
@@ -187,7 +188,7 @@ export const unFollow = (userId: number | null) => {
 }
 
 export const follow = (userId: number | null) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
         usersAPI.followUser(userId).then(response => {
             if (response.data.resultCode === 0) {

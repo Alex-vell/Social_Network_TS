@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./ActionTypes";
 import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 const ADD_POST = 'ADD-POST';
@@ -83,7 +84,7 @@ export const setUserProfile = (profile: any) => {
 //Thunk creator
 
 export const getUserProfile = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
