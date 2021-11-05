@@ -25,7 +25,7 @@ type ResponsePostType = {
     messages: Array<string>
     data: {}
 }
-type ContactsType = {
+export type ContactsType = {
     github: string
     vk: string
     facebook: string
@@ -35,17 +35,28 @@ type ContactsType = {
     youtube: string
     mainLink: string
 }
-type PhotosType = {
-    small: string
-    large: string
+export type PhotosType = {
+    small: string | null
+    large: string | null
 }
-type ResponseProfileType = {
+export type ResponseProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
     photos: PhotosType
+    //aboutMe: string
+}
+
+type ResponseGetStatusType = {
+    data: string
+}
+
+type ResponsePutStatusType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
 }
 
 
@@ -74,9 +85,21 @@ export const usersAPI = {
     followUser(userId: number | null) {
         return instance.post<ResponsePostType>(`follow/${userId}`)
     },
-    getProfile(userId: string) {
+    // getProfile(userId: string) {
+    //     return instance.get<ResponseProfileType>(`profile/` + userId)
+    // },
+}
+
+export const profileAPI = {
+    getProfile(userId: number) {
         return instance.get<ResponseProfileType>(`profile/` + userId)
     },
+    getStatus(userId: number) {
+        return instance.get<any>('profile/status/' + userId)
+    },
+    updateStatus(status: string) {
+        return instance.put<any>('profile/status/', {status: status})
+    }
 }
 
 

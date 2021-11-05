@@ -6,25 +6,31 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type profileContentType = {
     profile: any
+    status: string
+    updateUserStatus: (status: string) => void
+
 }
 
 export const ProfileContent: React.FC<profileContentType> = (props) => {
-    if (!props.profile){
+    if (!props.profile) {
         return <Preloader/>
     }
     return (
         <div>
             <div className={s.image}>
-                <img src='https://img.hipertextual.com/content/images/system/home_cover_1487382543596_2cf9e3.jpg' alt='img'/>
+                <img src='https://img.hipertextual.com/content/images/system/home_cover_1487382543596_2cf9e3.jpg'
+                     alt='img'/>
             </div>
             <div>
-                <img className={s.userPhotoImg} src={props.profile.photos.large !== null ? props.profile.photos.large : photoAvatar} alt='Photo'/>
+                {/* <img className={s.userPhotoImg} src={props.profile.photos.large ? props.profile.photos.large : photoAvatar} alt='Photo'/>*/}
+                <img className={s.userPhotoImg} src={props.profile.photos.large || photoAvatar} alt='Photo'/>
 
-                <ProfileStatus status={'We fly!!!'}/>
+                <ProfileStatus status={props.status}
+                               updateUserStatus={props.updateUserStatus}/>
 
 
                 <div>Full name: {props.profile.fullName}</div>
-                {props.profile.lookingForAJob ? <div>looking for a job</div> : '' }
+                {props.profile.lookingForAJob ? <div>looking for a job</div> : ''}
                 <div>Contacts:</div>
                 <ul>
                     {props.profile.contacts.github ? <li> GitHub: {props.profile.contacts.github}</li> : null}

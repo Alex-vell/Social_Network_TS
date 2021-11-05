@@ -1,11 +1,12 @@
 import {ActionsTypes} from "./ActionTypes";
-import {usersAPI} from "../api/api";
+import {profileAPI, ResponseProfileType} from "../api/api";
 import {Dispatch} from "redux";
 
 
 const ADD_POST = 'ADD-POST';
 const ADD_NEW_POST_TEXT = 'ADD-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 export type PostsType = {
     id: number
@@ -16,6 +17,7 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: any
+    status: string
 }
 
 export type InitialStateProfileReducerType = typeof initialState
@@ -26,7 +28,8 @@ const initialState = {
         {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
     newPostText: '',
-    profile: null
+    profile: null,
+    status: ''
 } as ProfilePageType
 
 export const profileReducer = (state: InitialStateProfileReducerType = initialState, action: ActionsTypes): InitialStateProfileReducerType => {
@@ -57,6 +60,12 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
             }
         }
 
+        case SET_USER_STATUS: {
+            return {
+                ...state, status: action.status
+            }
+        }
+
         default:
             return state
     }
@@ -80,14 +89,37 @@ export const setUserProfile = (profile: any) => {
         profile
     } as const
 }
+export const setUserStatus = (status: string) => {
+    return {
+        type: SET_USER_STATUS,
+        status
+    } as const
+}
 
 //Thunk creator
 
-export const getUserProfile = (userId: string) => {
+export const getUserProfile = (userId: number) => {
     return (dispatch: Dispatch) => {
-        usersAPI.getProfile(userId).then(response => {
+        debugger
+        profileAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
     }
 }
 
+export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
+      profileAPI.getStatus(userId)
+          .then(response => {
+              debugger
+          dispatch(setUserStatus(response.data))
+      })
+  }
+
+export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatus(status))
+            }
+        })
+}
