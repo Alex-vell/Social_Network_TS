@@ -1,6 +1,12 @@
 .dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    /*display: grid;*/
+    /*grid-template-columns: 2fr 10fr;*/
+}
+
+.dialogsContainer {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
 }
 
 .dialogsItem {

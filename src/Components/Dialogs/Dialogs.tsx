@@ -23,14 +23,20 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsItem}>
-                {dialogsElements}
+            <div className={s.dialogsContainer}>
+                <div className={s.dialogsItem}>
+                    {dialogsElements}
+                </div>
+                <div className={s.messages}>
+                    {messagesElements}
+                </div>
             </div>
-            <div className={s.messages}>
-                {messagesElements}
+            <div>
+                <textarea value={newMessageText} onChange={onChangeMessageHandler}/>
             </div>
-            <textarea value={newMessageText} onChange={onChangeMessageHandler}/>
-            <button onClick={addMessageHandler}>add</button>
+            <div>
+                <button onClick={addMessageHandler}>add</button>
+            </div>
         </div>
     )
 }

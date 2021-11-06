@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./ActionTypes";
-import {profileAPI, ResponseProfileType} from "../api/api";
+import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 
@@ -100,17 +100,15 @@ export const setUserStatus = (status: string) => {
 
 export const getUserProfile = (userId: number) => {
     return (dispatch: Dispatch) => {
-        debugger
         profileAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
     }
 }
 
-export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
+export const getUserStatus = (userId: number) =>  (dispatch: Dispatch) => {
       profileAPI.getStatus(userId)
           .then(response => {
-              debugger
           dispatch(setUserStatus(response.data))
       })
   }
