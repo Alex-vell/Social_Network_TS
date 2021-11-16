@@ -9,9 +9,8 @@ type postPropsType = {
 const Post: React.FC<postPropsType> = (props) => {
     return (
         <div className={s.item}>
-            <img src='https://ezyschooling.com/_nuxt/img/default-avatar.7a6572e.png'/>
+            <img src='https://ezyschooling.com/_nuxt/img/default-avatar.7a6572e.png' alt={'user'}/>
             {props.message}
-
             <div>
                 like {props.likesCount}
             </div>

@@ -1,16 +1,16 @@
 import {ActionsTypes} from "./ActionTypes";
+import {v1} from "uuid";
 
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const ADD_NEW_MESSAGE_TEXT = 'ADD-NEW-MESSAGE-TEXT';
 
 
 export type DialogsType = {
-    id: number
+    id: string
     name: string
 }
 export type MessagesType = {
-    id: number
+    id: string
     message: string
 }
 export type DialogsPageType = {
@@ -19,48 +19,28 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
-/*export type InitialStateDialogReducerType = {
-    messages: Array<MessagesType>
-    dialogs: Array<DialogsType>
-    newMessageText: string
-}*/
-
 export type InitialStateDialogReducerType = typeof initialState
 
 const initialState = {
     dialogs: [
-        {id: 1, name: 'Alex'},
-        {id: 2, name: 'Natali'},
-        {id: 3, name: 'Anna'}
+        {id: v1(), name: 'Alex'},
+        {id: v1(), name: 'Natali'},
+        {id: v1(), name: 'Anna'}
     ] as Array<DialogsType>,
     messages: [
-        {id: 1, message: 'I am a developer'},
-        {id: 2, message: 'bla bla'},
-        {id: 3, message: 'la la'}
+        {id: v1(), message: 'I am a developer'},
+        {id: v1(), message: 'bla bla'},
+        {id: v1(), message: 'la la'}
     ] as Array<MessagesType>,
-    newMessageText: ''
 } as DialogsPageType
 
 export const dialogReducer = (state: InitialStateDialogReducerType = initialState, action: ActionsTypes): InitialStateDialogReducerType => {
 
     switch (action.type) {
         case ADD_MESSAGE:
-            let newMessage = state.newMessageText /*{
-                id: new Date().getDate(),
-                message: state.newMessageText
-            }*/
-            /* let newState = {...state}*/
             return {
                 ...state,
-                newMessageText: '',
-                messages: [...state.messages, {id: new Date().getDate(), message: newMessage}]
-            }
-
-        case ADD_NEW_MESSAGE_TEXT:
-            /*let newState = {...state}*/
-            return {
-                ...state,
-                newMessageText: action.newText
+                messages: [...state.messages, {id: v1(), message: action.newMessageText}]
             }
 
         default:
@@ -68,15 +48,9 @@ export const dialogReducer = (state: InitialStateDialogReducerType = initialStat
     }
 }
 
-export const addMessageAC = (messageText: string) => {
+export const sendMessageAC = (newMessageText: string) => {
     return {
         type: ADD_MESSAGE,
-        messageText: messageText
-    } as const
-}
-export const addNewMessageTextAC = (newText: string) => {
-    return {
-        type: ADD_NEW_MESSAGE_TEXT,
-        newText: newText
+        newMessageText: newMessageText
     } as const
 }

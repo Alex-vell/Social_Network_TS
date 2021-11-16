@@ -17,13 +17,8 @@ export const ProfileContent: React.FC<profileContentType> = (props) => {
     }
     return (
         <div>
-            {/*<div className={s.image}>
-                <img src='https://img.hipertextual.com/content/images/system/home_cover_1487382543596_2cf9e3.jpg'
-                     alt='img'/>
-            </div>*/}
             <div>
-                {/* <img className={s.userPhotoImg} src={props.profile.photos.large ? props.profile.photos.large : photoAvatar} alt='Photo'/>*/}
-                <img className={s.userPhotoImg} src={props.profile.photos.large || photoAvatar} alt='Photo'/>
+                <img className={s.userPhotoImg} src={props.profile.photos.large || photoAvatar} alt='user'/>
 
                 <ProfileStatus status={props.status}
                                updateUserStatus={props.updateUserStatus}/>

@@ -1,5 +1,5 @@
-import {addNewPostTextAC, addPostAC, profileReducer, setUserProfile} from "./profile-reducer";
-import {addMessageAC, addNewMessageTextAC, dialogReducer} from "./dialog-reducer";
+import { addPostAC, profileReducer, setUserProfile} from "./profile-reducer";
+import {sendMessageAC, dialogReducer} from "./dialog-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {
     setFollow,

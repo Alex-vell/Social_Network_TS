@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {UserType} from "../redux/users-reducer";
 
 // usersAPI types
@@ -7,30 +7,21 @@ type GetUsersType = {
     totalCount: number
     error: string
 }
-type UnFollowUserType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
-type followUserType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
 
 // profileAPI types
-type GetProfileType = {
-    userId: number
-}
-type GetStatusType = {
-    userId: number
-}
-type UpdateStatusType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
-/*export type ContactsType = {
+
+// type GetStatusType = {
+//     status: string
+// }
+// type UpdateStatusType = {
+//     fieldsErrors: Array<string>
+//     resultCode: number
+//     messages: Array<string>
+//     data: {
+//         status: string
+//     }
+// }
+export type ContactsType = {
     github: string
     vk: string
     facebook: string
@@ -51,11 +42,7 @@ export type GetProfileDataType = {
     fullName: string
     contacts: ContactsType
     photos: PhotosType
-    //aboutMe: string
-}*/
-
-
-
+}
 
 // Auth types
 type DataType = {
@@ -63,29 +50,21 @@ type DataType = {
     email: string
     login: string
 }
-type ResponseAuthGetType = {
-    /* fieldsErrors: []*/
+
+// type ResponsePostLoginType = {
+//     resultCode: number
+//     messages: Array<string>,
+//     data: {
+//         userId: number
+//     }
+// }
+
+type CommonResponseType<T = {}> = {
+    fieldsErrors: Array<string>
+    messages: Array<string>
     resultCode: number
-    messages: []
-    data: DataType
-    /*isAuth: boolean*/
+    data: T
 }
-type ResponsePostLoginType = {
-    resultCode: number
-    messages: Array<string>,
-    data: {
-        userId: number
-    }
-
-}
-type ResponseDeleteLogoutType = {
-    resultCode: number
-    messages: Array<string>,
-    data: {}
-}
-
-
-
 
 const instance = axios.create({
     withCredentials: true,
@@ -97,13 +76,13 @@ const instance = axios.create({
 
 export const authAPI = {
     me() {
-        return instance.get<ResponseAuthGetType>('auth/me')
+        return instance.get<CommonResponseType<DataType>>('auth/me')
     },
     login(email: string | null, password: string | null, rememberMe = false) {
         return instance.post<any>('/auth/login', {email, password, rememberMe})  ///////
     },
     logout() {
-        return instance.delete<ResponseDeleteLogoutType>('/auth/login')
+        return instance.delete<CommonResponseType>('/auth/login')
     }
 }
 
@@ -113,26 +92,26 @@ export const usersAPI = {
             .then(response => response.data)
     },
     unFollowUser(userId: number | null) {
-        return instance.delete<UnFollowUserType>(`follow/${userId}`)
+        return instance.delete<CommonResponseType>(`follow/${userId}`)
     },
     followUser(userId: number | null) {
-        return instance.post<followUserType>(`follow/${userId}`)
+        return instance.post<CommonResponseType>(`follow/${userId}`)
     },
-    // getProfile(userId: string) {
-    //     return instance.get<ResponseProfileType>(`profile/` + userId)
-    // },
 }
 
 export const profileAPI = {
     getProfile(userId: number) {
-        return instance.get<GetProfileType>(`profile/` + userId)
+        return instance.get<GetProfileDataType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
-        return instance.get<any>('profile/status/' + userId)
+        return instance.get<string>(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-        return instance.put<any>('profile/status/', {status: status})
-    }
+        return instance.put<any>('profile/status/', {status})  ////////
+    },
+    // updateStatus(status: string) {
+    //     return instance.put<CommonResponseType<{status: string}>, AxiosResponse<CommonResponseType<{status: string}>>>('profile/status/', {status})
+    // }
 }
 
 

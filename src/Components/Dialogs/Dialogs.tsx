@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Dialogs.module.css'
 import {DialogsItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Field, Form, Formik, FormikProps} from "formik";
 
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -11,15 +12,6 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     let dialogsElements = state.dialogs.map(el => <DialogsItem key={el.id} id={el.id} name={el.name}/>)
     let messagesElements = state.messages.map(el => <Message key={el.id} message={el.message}/>)
-    let newMessageText = state.newMessageText
-
-    const addMessageHandler = () => {
-        props.addMessageCallback(newMessageText)
-    }
-    const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let content = event.currentTarget.value
-        props.onChangeMessageCallback(content)
-    }
 
     return (
         <div className={s.dialogs}>
@@ -31,12 +23,36 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                     {messagesElements}
                 </div>
             </div>
-            <div>
-                <textarea value={newMessageText} onChange={onChangeMessageHandler}/>
-            </div>
-            <div>
-                <button onClick={addMessageHandler}>add</button>
-            </div>
+
+            <MessageForm addMessageCallback={props.addMessageCallback}/>
+
         </div>
     )
 }
+
+
+type FormPropsType = {
+    addMessageCallback: (newMessageText: string) => void
+}
+
+type FormikDataType = {
+    newMessageText: string
+}
+
+export const MessageForm = (props: FormPropsType) => (
+    <Formik
+        initialValues={{newMessageText: ''}}
+        onSubmit={(values: FormikDataType, actions) => {
+            props.addMessageCallback(values.newMessageText)
+            actions.setSubmitting(false);
+            actions.resetForm();
+        }}
+    >
+        {(props: FormikProps<FormikDataType>) => (
+            <Form>
+                <div><Field as = {'textarea'} type="text" name="newMessageText" placeholder="Enter text"/></div>
+                <button type="submit">Add post</button>
+            </Form>
+        )}
+    </Formik>
+)

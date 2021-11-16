@@ -2,6 +2,7 @@ import {ActionsTypes} from "./ActionTypes";
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 
+
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
 
 export type InitialStateAuthReducerType = {
@@ -28,6 +29,7 @@ export const authReducer = (state: InitialStateAuthReducerType = initialState, a
                 ...state,
                 ...action.payload,
             }
+
         default:
             return state
 
@@ -68,7 +70,7 @@ export const loginUser = (email: string | null, password: string | null, remembe
 }
 
 export const logoutUser = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
         authAPI.logout()
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -77,7 +79,6 @@ export const logoutUser = () => {
             })
     }
 }
-
 
 
 

@@ -1,7 +1,6 @@
 import React from "react";
 import {ProfileContent} from "./ProfileContent/ProfileContent";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {UserType} from "../../redux/users-reducer";
 
 type StateType = {
     profile: any

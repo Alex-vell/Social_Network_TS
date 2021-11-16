@@ -11,10 +11,10 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
-type locationType = {
-    city: string
-    country: string
-}
+// type locationType = {
+//     city: string
+//     country: string
+// }
 type PhotoType = {
     small: string | null
     large: string | null
