@@ -17,7 +17,7 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-export const Login = () => {
+export const LoginPage = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const dispatch = useDispatch()
 
@@ -62,9 +62,9 @@ export const Login = () => {
                 <p>{errors.password?.message}</p>
 
 
-                {/* <input {...register("rememberMe")}
+                 <input {...register("rememberMe")}
                    className={s.checkbox}
-                   type='checkbox'/>*/}
+                   type='checkbox'/>
                 <button type="submit" className={s.button}>Login</button>
             </div>
         </form>

@@ -5,6 +5,7 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
+import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

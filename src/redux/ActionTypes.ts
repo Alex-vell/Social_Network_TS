@@ -10,6 +10,7 @@ import {
     toggleFollowingInProgress
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
+import {setInitialized} from "./app-reducer";
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -24,3 +25,4 @@ export type ActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setInitialized>

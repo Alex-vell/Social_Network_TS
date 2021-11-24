@@ -46,16 +46,15 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 
 //Thunk creator
 
-export const getAuthUser = () => {
-    return (dispatch: Dispatch) => {
-        authAPI.me()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data;
-                    dispatch(setAuthUserData(id, email, login, true))
-                }
-            })
-    }
+export const getAuthUser = () => (dispatch: Dispatch) => {
+    return authAPI.me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data;
+                dispatch(setAuthUserData(id, email, login, true))
+            }
+        })
+
 }
 
 export const loginUser = (email: string | null, password: string | null, rememberMe: boolean) => {

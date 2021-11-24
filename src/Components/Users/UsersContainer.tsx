@@ -4,7 +4,6 @@ import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./Users";
 import {Preloader} from "../general/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -69,5 +68,5 @@ export default compose<ComponentType>(
         follow, unFollow, setCurrentPage,
         toggleFollowingInProgress, getUsers
     }),
-    withAuthRedirect
+    /*withAuthRedirect*/
 )(UsersContainer)
