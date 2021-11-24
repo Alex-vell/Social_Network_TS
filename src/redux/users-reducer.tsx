@@ -117,6 +117,8 @@ export const usersReducer = (state: InitialStateUsersReducerType = initialState,
     }
 }
 
+// action
+
 export const setFollow = (userId: number | null) => {
     return {
         type: FOLLOW,
@@ -163,11 +165,11 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number | 
 
 //Thunk Creator
 
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (page: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setToggleIsFetching(true))
 
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        usersAPI.getUsers(page, pageSize).then(data => {
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
             dispatch(setToggleIsFetching(false))

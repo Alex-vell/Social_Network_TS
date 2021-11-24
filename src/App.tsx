@@ -46,7 +46,7 @@ export default compose<ComponentType>(
     connect(mapStateToProps, {getAuthUser}))(App)
 
 
-// FC with Hooks
+// FC using Hooks
 /*import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
