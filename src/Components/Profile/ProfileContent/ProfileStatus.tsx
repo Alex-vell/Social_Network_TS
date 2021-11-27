@@ -22,7 +22,7 @@ export class ProfileStatus extends React.Component<profileStatusType> {
     }
 
     deActivateEditMode = () => {
-        debugger
+
         this.setState(
             {
                 editMode: false

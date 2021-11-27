@@ -3,6 +3,7 @@ import s from './ProfileContent.module.css'
 import {Preloader} from "../../general/Preloader/Preloader";
 import photoAvatar from "../../../assets/images/photoAvatar.jpg";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type profileContentType = {
     profile: any
@@ -20,7 +21,7 @@ export const ProfileContent: React.FC<profileContentType> = (props) => {
             <div>
                 <img className={s.userPhotoImg} src={props.profile.photos.large || photoAvatar} alt='user'/>
 
-                <ProfileStatus status={props.status}
+                <ProfileStatusWithHooks status={props.status}
                                updateUserStatus={props.updateUserStatus}/>
 
 
