@@ -9,7 +9,7 @@ import {
     setUsers,
     toggleFollowingInProgress
 } from "./users-reducer";
-import {setAuthUserData} from "./auth-reducer";
+import {setAuthUserData, setError} from "./auth-reducer";
 import {setInitialized} from "./app-reducer";
 
 export type ActionsTypes =
@@ -26,3 +26,4 @@ export type ActionsTypes =
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setInitialized>
+    | ReturnType<typeof setError>

@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderType> = ({isAuth, login,logoutUserCallback})
 
             {
                 isAuth
-                ? <div className={s.loginBlock}>{login} <button onClick={logoutUserCallback}>Logout</button> </div>
+                ? <div className={s.loginBlock}>{login} <button onClick={logoutUserCallback}>Log out</button> </div>
                 : <div className={s.loginBlock}>
                     <NavLink to={'/login'}>Login</NavLink>
                 </div>

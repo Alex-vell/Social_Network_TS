@@ -36,7 +36,6 @@ export const setInitialized = () => ({type: SET_INITIALIZED} as const)
 //Thunk creator
 
 export const initializeApp = () => (dispatch: Dispatch<any>) => {
-    debugger
     let promise = dispatch(getAuthUser())
     Promise.all([promise])
         .then(() => {

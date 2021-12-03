@@ -35,8 +35,10 @@ export class ProfileContainer extends React.Component<ProfileContainerStateType>
                 this.props.history.push('/login')
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        if (userId) {
+            this.props.getUserProfile(userId)
+            this.props.getUserStatus(userId)
+        }
     }
 
     render() {

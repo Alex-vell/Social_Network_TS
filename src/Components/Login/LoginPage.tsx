@@ -1,5 +1,5 @@
 ///////////////////////////////// react hook form
-
+/*
 import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
@@ -64,16 +64,15 @@ export const LoginPage = () => {
 
                  <input {...register("rememberMe")}
                    className={s.checkbox}
-                   type='checkbox'/>
+                        type='checkbox'/>
                 <button type="submit" className={s.button}>Login</button>
             </div>
         </form>
     );
-}
+}*/
 
 
 ////////////////////////////  useFormik
-/*
 import React from 'react';
 import {useFormik} from 'formik';
 import {Redirect} from "react-router-dom";
@@ -90,8 +89,9 @@ type FormikDataType = {
     rememberMe: boolean
 }
 
-export const Login = () => {
+export const LoginPage = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const error = useSelector<AppStateType, string | null>(state => state.auth.error)
     const dispatch = useDispatch()
 
     const initialValues = {
@@ -101,7 +101,7 @@ export const Login = () => {
     }
 
     const onSubmit = (values: FormikDataType) => {
-        dispatch(loginUser(values.email, values.password, values.rememberMe))
+        dispatch(loginUser(values))
     }
     const validationSchema = Yup.object().shape({
         password: Yup.string()
@@ -162,13 +162,15 @@ export const Login = () => {
                     id="rememberMe"
                     name="rememberMe"
                     type="checkbox"
+                    checked={formik.values.rememberMe}
                     onChange={formik.handleChange}
                 />
             </div>
             <button type="submit" disabled={!(formik.dirty && formik.isValid)} className={s.button}>Submit</button>
+            {error && <div style={{color: 'red'}}>{error}</div>}
         </form>
     );
-}*/
+}
 
 
 

@@ -5,14 +5,14 @@ type profileStatusType = {
     updateUserStatus: (status: string) => void
 }
 
-export const ProfileStatusWithHooks: React.FC<profileStatusType> = (props) => {
+export const ProfileStatusWithHooks: React.FC<profileStatusType> = ({status, updateUserStatus}) => {
 
     const [editMode, setEditMode] = useState(false)
-    const [status, setStatus] = useState(props.status)
+    const [statusValue, setStatusValue] = useState(status)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatusValue(status)
+    }, [status])
 
 
     const activateEditMode = () => {
@@ -20,23 +20,23 @@ export const ProfileStatusWithHooks: React.FC<profileStatusType> = (props) => {
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateUserStatus(status)
+        updateUserStatus(statusValue)
     }
     const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.currentTarget.value)
+        setStatusValue(e.currentTarget.value)
     }
 
     return (
         <div>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode}>{props.status || '---'}</span>
+                <span onDoubleClick={activateEditMode}>{status || '---'}</span>
             </div>
             }
             {editMode &&
             <div>
                 <input onChange={onStatusChangeHandler} onBlur={deactivateEditMode} autoFocus={true}
-                       value={status}/>
+                       value={statusValue}/>
             </div>
             }
 
