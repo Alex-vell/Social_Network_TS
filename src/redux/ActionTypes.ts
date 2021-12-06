@@ -1,4 +1,4 @@
-import {addPostAC, setUserProfile, setUserStatus} from "./profile-reducer";
+import {addPostAC, deletePostAC, setUserProfile, setUserStatus} from "./profile-reducer";
 import {sendMessageAC} from "./dialog-reducer";
 import {
     setCurrentPage,
@@ -27,3 +27,4 @@ export type ActionsTypes =
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setInitialized>
     | ReturnType<typeof setError>
+    | ReturnType<typeof deletePostAC>

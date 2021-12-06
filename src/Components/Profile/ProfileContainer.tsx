@@ -40,9 +40,11 @@ export class ProfileContainer extends React.Component<ProfileContainerStateType>
             this.props.getUserStatus(userId)
         }
     }
+    componentDidUpdate(prevProps: MapStateToPropsType, prevState: any) {
+        return prevProps !== this.props || prevState !== this.state
+    }
 
     render() {
-
         return (
             <div>
                 <Profile   {...this.props}

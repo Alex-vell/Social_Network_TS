@@ -9,7 +9,6 @@ import {yupResolver} from "@hookform/resolvers/yup";
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let postsElement = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>)
-
     return (
         <div>
             <PostForm addPostCallback={props.addPostCallback}/>
@@ -19,7 +18,6 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         </div>
     )
 }
-
 
 type FormPropsType = {
     addPostCallback: (newPostText: string) => void

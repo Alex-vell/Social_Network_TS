@@ -1,15 +1,15 @@
 import {ActionsTypes} from "./ActionTypes";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
-import {v1} from "uuid";
 
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 export type PostsType = {
-    id: string
+    id: number
     message: string
     likesCount: number
 }
@@ -24,8 +24,8 @@ export type InitialStateProfileReducerType = typeof initialState
 
 const initialState = {
     posts: [
-        {id: v1(), message: 'Hey la lay', likesCount: 15},
-        {id: v1(), message: 'Bla bla', likesCount: 11}
+        {id: 1, message: 'Hey la lay', likesCount: 15},
+        {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
     profile: null,
     status: ''
@@ -38,7 +38,7 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
             return {
                 ...state,
                 posts: [...state.posts, {
-                    id: v1(),
+                    id: 3,
                     message: action.newPostText,
                     likesCount: 0
                 },
@@ -56,6 +56,11 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
                 ...state, status: action.status
             }
         }
+
+        case "DELETE_POST":
+            return {
+                ...state, posts: state.posts.filter(p => p.id !== action.postId)
+            }
 
         default:
             return state
@@ -80,6 +85,13 @@ export const setUserStatus = (status: string) => {
     return {
         type: SET_USER_STATUS,
         status
+    } as const
+}
+
+export const deletePostAC = (postId: number) => {
+    return {
+        type: DELETE_POST,
+        postId
     } as const
 }
 

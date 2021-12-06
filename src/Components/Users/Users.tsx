@@ -13,13 +13,11 @@ type UsersType = {
     totalUsersCount: number
     pageSize: number
     onPageChangedCallback: (pageNumber: number) => void
-    //toggleFollowingInProgress: (isFetching: boolean, userId: number | null) => void
     followingInProgress: Array<number | null>
 }
 
 
 export const Users = (props: UsersType) => {
-
     let pages = []
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     for (let i = 1; i <= pagesCount; i++) {
@@ -49,28 +47,12 @@ export const Users = (props: UsersType) => {
                 ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
 
                     props.unFollow(u.id)
-                    // props.toggleFollowingInProgress(true, u.id)
-                    // followAPI.unFollowUser(u.id).then(data => {
-                    //     if (data.resultCode === 0) {
-                    //         props.unFollow(u.id)
-                    //     }
-                    //     props.toggleFollowingInProgress(false, u.id)
-                    // })
-
 
                 }}>Unfollow</button>
 
                 : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
 
                     props.follow(u.id)
-                    // props.toggleFollowingInProgress(true, u.id)
-                    // followAPI.followUser(u.id).then(data => {
-                    //     if (data.resultCode === 0) {
-                    //         props.follow(u.id)
-                    //     }
-                    //     props.toggleFollowingInProgress(false, u.id)
-                    // })
-
 
                 }}>Follow</button>}
           </div>

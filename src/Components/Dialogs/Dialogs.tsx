@@ -39,20 +39,22 @@ type FormikDataType = {
     newMessageText: string
 }
 
-export const MessageForm = (props: FormPropsType) => (
-    <Formik
-        initialValues={{newMessageText: ''}}
-        onSubmit={(values: FormikDataType, actions) => {
-            props.addMessageCallback(values.newMessageText)
-            actions.setSubmitting(false);
-            actions.resetForm();
-        }}
-    >
-        {(props: FormikProps<FormikDataType>) => (
-            <Form>
-                <div><Field as = {'textarea'} type="text" name="newMessageText" placeholder="Enter text"/></div>
-                <button type="submit">Add post</button>
-            </Form>
-        )}
-    </Formik>
-)
+export const MessageForm = (props: FormPropsType) => {
+    return (
+        <Formik
+            initialValues={{newMessageText: ''}}
+            onSubmit={(values: FormikDataType, actions) => {
+                props.addMessageCallback(values.newMessageText)
+                actions.setSubmitting(false);
+                actions.resetForm();
+            }}
+        >
+            {(props: FormikProps<FormikDataType>) => (
+                <Form>
+                    <div><Field as={'textarea'} type="text" name="newMessageText" placeholder="Enter text"/></div>
+                    <button type="submit">Add post</button>
+                </Form>
+            )}
+        </Formik>
+    )
+}
