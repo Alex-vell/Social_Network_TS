@@ -25,7 +25,7 @@ export const Users: React.FC<UsersType> = (
 
     return <div>
         <Pagination currentPage={currentPage}
-                    totalUsersCount={totalUsersCount}
+                    totalItemsCount={totalUsersCount}
                     pageSize={pageSize}
                     onPageChangedCallback={onPageChangedCallback}/>
         <div>
