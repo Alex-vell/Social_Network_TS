@@ -67,7 +67,6 @@ p {
 }
 
 
-
 .button {
     outline: 0;
     border: 0;
@@ -81,14 +80,20 @@ p {
     line-height: 20px;
     width: 100px;
 }
+
 .button:active {
     background-color: #bdbdbd;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
 .button:disabled {
     background-color: #eee;
     border-color: #eee;
     color: #444;
     cursor: not-allowed;
+}
+
+.label p {
+    color: rgba(0, 0, 0, 0.6);
 }

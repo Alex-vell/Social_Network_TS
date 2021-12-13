@@ -105,7 +105,7 @@ export const LoginPage = () => {
     }
     const validationSchema = Yup.object().shape({
         password: Yup.string()
-            .min(8, 'Too Short!')
+            .min(4, 'Too Short!')
             .max(20, 'Too Long!')
             .required('Required'),
         email: Yup.string().email('Invalid email').required('Required'),
@@ -122,53 +122,67 @@ export const LoginPage = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    placeholder="Email"
-                    className={`${s.input} ${formik.errors.email && formik.touched.email ? s.errorInput : s.input}`}
-                    onBlur={formik.handleBlur}
-                />
-            </div>
+        <div>
 
-            {formik.errors.email && formik.touched.email
-                ? (<div style={{color: "red"}}>{formik.errors.email}</div>)
-                : null}
+            <label className={s.label}>
+                <p>To log in get registered
+                    <a href={'https://social-network.samuraijs.com/'}
+                       target={'_blank'}> here
+                    </a>
+                </p>
+                <p>or use common test account credentials:</p>
+                <p>Email: free@samuraijs.com</p>
+                <p>Password: free</p>
+            </label>
 
-            <div>
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    placeholder="Password"
-                    className={`${s.input} ${formik.errors.password && formik.touched.password ? s.errorInput : s.input}`}
-                    onBlur={formik.handleBlur}
-                />
-            </div>
+            <form onSubmit={formik.handleSubmit}>
+                <div>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        placeholder="Email"
+                        className={`${s.input} ${formik.errors.email && formik.touched.email ? s.errorInput : s.input}`}
+                        onBlur={formik.handleBlur}
+                    />
+                </div>
 
-            {formik.errors.password && formik.touched.password
-                ? (<div style={{color: "red"}}>{formik.errors.password}</div>)
-                : null}
+                {formik.errors.email && formik.touched.email
+                    ? (<div style={{color: "red"}}>{formik.errors.email}</div>)
+                    : null}
 
-            <div>
-                <input
-                    id="rememberMe"
-                    name="rememberMe"
-                    type="checkbox"
-                    checked={formik.values.rememberMe}
-                    onChange={formik.handleChange}
-                />
-            </div>
-            <button type="submit" disabled={!(formik.dirty && formik.isValid)} className={s.button}>Submit</button>
-            {error && <div style={{color: 'red'}}>{error}</div>}
-        </form>
+                <div>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        placeholder="Password"
+                        className={`${s.input} ${formik.errors.password && formik.touched.password ? s.errorInput : s.input}`}
+                        onBlur={formik.handleBlur}
+                    />
+                </div>
+
+                {formik.errors.password && formik.touched.password
+                    ? (<div style={{color: "red"}}>{formik.errors.password}</div>)
+                    : null}
+
+                <div>
+                    <input
+                        id="rememberMe"
+                        name="rememberMe"
+                        type="checkbox"
+                        checked={formik.values.rememberMe}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <button type="submit" disabled={!(formik.dirty && formik.isValid)} className={s.button}>Submit</button>
+                {error && <div style={{color: 'red'}}>{error}</div>}
+            </form>
+        </div>
     );
 }
 

@@ -2,7 +2,6 @@ import React from "react";
 import s from './ProfileContent.module.css'
 import {Preloader} from "../../general/Preloader/Preloader";
 import photoAvatar from "../../../assets/images/photoAvatar.jpg";
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type profileContentType = {
@@ -12,31 +11,31 @@ type profileContentType = {
 
 }
 
-export const ProfileContent: React.FC<profileContentType> = (props) => {
-    if (!props.profile) {
+export const ProfileContent: React.FC<profileContentType> = ({ profile, status, updateUserStatus}) => {
+    if (!profile) {
         return <Preloader/>
     }
     return (
         <div>
             <div>
-                <img className={s.userPhotoImg} src={props.profile.photos.large || photoAvatar} alt='user'/>
+                <img className={s.userPhotoImg} src={profile.photos.large || photoAvatar} alt='user'/>
 
-                <ProfileStatusWithHooks status={props.status}
-                               updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatusWithHooks status={status}
+                               updateUserStatus={updateUserStatus}/>
 
 
-                <div>Full name: {props.profile.fullName}</div>
-                {props.profile.lookingForAJob ? <div>looking for a job</div> : ''}
+                <div>Full name: {profile.fullName}</div>
+                {profile.lookingForAJob ? <div>looking for a job</div> : ''}
                 <div>Contacts:</div>
                 <ul>
-                    {props.profile.contacts.github ? <li> GitHub: {props.profile.contacts.github}</li> : null}
-                    {props.profile.contacts.vk ? <li> vk: {props.profile.contacts.vk}</li> : null}
-                    {props.profile.contacts.facebook ? <li> facebook: {props.profile.contacts.facebook}</li> : null}
-                    {props.profile.contacts.instagram ? <li> instagram: {props.profile.contacts.instagram}</li> : null}
-                    {props.profile.contacts.twitter ? <li> twitter: {props.profile.contacts.twitter}</li> : null}
-                    {props.profile.contacts.website ? <li> website: {props.profile.contacts.website}</li> : null}
-                    {props.profile.contacts.youtube ? <li> youtube: {props.profile.contacts.youtube}</li> : null}
-                    {props.profile.contacts.mainLink ? <li> mainLink: {props.profile.contacts.mainLink}</li> : null}
+                    {profile.contacts.github ? <li> GitHub: {profile.contacts.github}</li> : null}
+                    {profile.contacts.vk ? <li> vk: {profile.contacts.vk}</li> : null}
+                    {profile.contacts.facebook ? <li> facebook: {profile.contacts.facebook}</li> : null}
+                    {profile.contacts.instagram ? <li> instagram: {profile.contacts.instagram}</li> : null}
+                    {profile.contacts.twitter ? <li> twitter: {profile.contacts.twitter}</li> : null}
+                    {profile.contacts.website ? <li> website: {profile.contacts.website}</li> : null}
+                    {profile.contacts.youtube ? <li> youtube: {profile.contacts.youtube}</li> : null}
+                    {profile.contacts.mainLink ? <li> mainLink: {profile.contacts.mainLink}</li> : null}
                 </ul>
             </div>
         </div>

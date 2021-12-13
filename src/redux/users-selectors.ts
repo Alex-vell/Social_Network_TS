@@ -1,5 +1,5 @@
 import {AppStateType} from "./redux-store";
-import {createSelector} from "reselect";
+
 
 export const getUsers = (state: AppStateType) => {
   return state.usersPage
