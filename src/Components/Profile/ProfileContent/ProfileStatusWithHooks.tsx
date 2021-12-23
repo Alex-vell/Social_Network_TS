@@ -2,10 +2,11 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 
 type profileStatusType = {
     status: string
+    isOwner: boolean
     updateUserStatus: (status: string) => void
 }
 
-export const ProfileStatusWithHooks: React.FC<profileStatusType> = ({status, updateUserStatus}) => {
+export const ProfileStatusWithHooks: React.FC<profileStatusType> = ({status, updateUserStatus, isOwner}) => {
 
     const [editMode, setEditMode] = useState(false)
     const [statusValue, setStatusValue] = useState(status)
@@ -28,7 +29,7 @@ export const ProfileStatusWithHooks: React.FC<profileStatusType> = ({status, upd
 
     return (
         <div>
-            {!editMode &&
+            {!editMode && isOwner &&
             <div>
                 <span onDoubleClick={activateEditMode}>{status || '---'}</span>
             </div>

@@ -45,6 +45,15 @@ export const profileAPI = {
        // return instance.put<CommonResponseType>('profile/status/', {status})  ////////
         return instance.put<{ status: string }, AxiosResponse<CommonResponseType>>('profile/status/', {status})
     },
+    savePhoto(photoFile: any) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<any>('profile/photo/', formData,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
 
 }
 
@@ -90,8 +99,8 @@ export type ContactsType = {
     mainLink: string
 }
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: string
+    large: string
 }
 export type GetProfileDataType = {
     userId: number

@@ -1,17 +1,18 @@
-import {profileAPI} from "../api/api";
+import {GetProfileDataType, profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_USER_STATUS = 'profile/SET_USER_STATUS';
 const DELETE_POST = 'profile/DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 const initialState = {
     posts: [
         {id: 1, message: 'Hey la lay', likesCount: 15},
         {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
-    profile: null,
+    profile: null as GetProfileDataType | null,
     status: ''
 } as ProfilePageType
 
@@ -44,6 +45,11 @@ export const profileReducer = (state: InitialStateProfileReducerType = initialSt
         case DELETE_POST:
             return {
                 ...state, posts: state.posts.filter(p => p.id !== action.postId)
+            }
+
+        case SAVE_PHOTO_SUCCESS:
+            return {
+                ...state, profile: {...state.profile, photos: action.photos}
             }
 
         default:
@@ -80,6 +86,13 @@ export const deletePostAC = (postId: number) => {
     } as const
 }
 
+export const savePhotoSuccess = (photos:  {small: string, large: string }) => {
+    return {
+        type: SAVE_PHOTO_SUCCESS,
+        photos
+    } as const
+}
+
 //Thunk creator
 export const getUserProfile = (userId: number) => {
     return async (dispatch: Dispatch) => {
@@ -97,6 +110,13 @@ export const updateUserStatus = (status: string) => async (dispatch: Dispatch) =
     const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
+    }
+}
+
+export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.savePhoto(photo)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 
@@ -119,3 +139,4 @@ type ActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccess>
