@@ -11,11 +11,12 @@ type profileContentType = {
     isOwner: boolean
     savePhoto: (photo: File) => void
     updateUserStatus: (status: string) => void
+    saveProfile: (profile: any) => void
 
 }
 
 export const ProfileContent: React.FC<profileContentType> = (
-    { profile, status, updateUserStatus, isOwner,savePhoto}) => {
+    { profile, status, updateUserStatus, isOwner,savePhoto, saveProfile}) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -40,7 +41,7 @@ export const ProfileContent: React.FC<profileContentType> = (
                                updateUserStatus={updateUserStatus}/>
 
                 {editMode
-                ? <ProfileDataForm profile={profile}/>
+                ? <ProfileDataForm saveProfile={saveProfile} profile={profile} toEditMode={() => {setEditMode(false)}}/>
                 : <ProfileData profile={profile} isOwner={isOwner} toEditMode={() => {setEditMode(true)}}/>
                 }
             </div>
@@ -84,7 +85,7 @@ export const ProfileData: React.FC<ProfilePropsType> = ({profile, isOwner, toEdi
               </div>
           }
           <div>
-              <b>About me</b>: {profile.about}
+              <b>About me</b>: {profile.aboutMe}
           </div>
 
           <div>

@@ -8,16 +8,19 @@ type StateType = {
     status: string
     savePhoto: (photo: File) => void
     updateUserStatus: (status: string) => void
+    saveProfile: (profile: any) => void
 }
 
-export const Profile: React.FC<StateType> = (props) => {
+export const Profile: React.FC<StateType> = (
+    {profile,isOwner, status, savePhoto, saveProfile, updateUserStatus}) => {
     return (
         <div>
-            <ProfileContent profile={props.profile}
-                            isOwner={props.isOwner}
-                            status={props.status}
-                            savePhoto={props.savePhoto}
-                            updateUserStatus={props.updateUserStatus}/>
+            <ProfileContent profile={profile}
+                            isOwner={isOwner}
+                            status={status}
+                            savePhoto={savePhoto}
+                            saveProfile={saveProfile}
+                            updateUserStatus={updateUserStatus}/>
             <MyPostsContainer
             />
         </div>

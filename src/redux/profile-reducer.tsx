@@ -1,5 +1,7 @@
 import {GetProfileDataType, profileAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
+import {setError} from "./auth-reducer";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -94,30 +96,71 @@ export const savePhotoSuccess = (photos:  {small: string, large: string }) => {
 }
 
 //Thunk creator
-export const getUserProfile = (userId: number) => {
+export const getUserProfile = (userId: number | null) => {
     return async (dispatch: Dispatch) => {
-        const response = await profileAPI.getProfile(userId)
-        dispatch(setUserProfile(response.data))
+
+        try {
+            const response = await profileAPI.getProfile(userId)
+            dispatch(setUserProfile(response.data))
+        }
+        catch (e) {
+
+        }
     }
 }
 
 export const getUserStatus = (userId: number) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.getStatus(userId)
-    dispatch(setUserStatus(response.data))
+
+    try {
+        const response = await profileAPI.getStatus(userId)
+        dispatch(setUserStatus(response.data))
+    }
+    catch (e) {
+
+    }
 }
 
 export const updateUserStatus = (status: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status))
+
+    try {
+        const response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
+    }
+    catch (e) {
+
     }
 }
 
 export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.savePhoto(photo)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+
+    try {
+        const response = await profileAPI.savePhoto(photo)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
     }
+    catch (e) {
+
+    }
+
+}
+
+export const saveProfile = (profile: any) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
+    const userId = getState().auth.userId
+
+        try {
+            const response = await profileAPI.saveProfile(profile)
+            if (response.data.resultCode === 0) {
+                // dispatch(savePhotoSuccess(response.data.data.photos))
+                dispatch(getUserProfile(userId))
+            }
+        }
+        catch (e) {
+            dispatch(setError(e.message))
+        }
+
 }
 
 //types
