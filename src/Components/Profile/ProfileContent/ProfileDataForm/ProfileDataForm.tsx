@@ -2,14 +2,16 @@ import React from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import s from './ProfileDataForm.module.css'
+
 
 type ProfileDataFormPropsType = {
-    profile: any
+    profile: FormDataType
     toEditMode: () => void
-    saveProfile: (profile: any) => void
+    saveProfile: (profile: FormDataType) => void
 }
 
-type FormDataType = {
+export type FormDataType = {
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -38,11 +40,11 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, to
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={s.profileDataFormContainer}>
             {/*<button onClick={alert('save')}>Save</button>*/}
-            <div>
-                <b>Full name</b>:
-                <div>
+            <div className={s.dataWrapper}>
+                <b className={s.dataTitle}>Full name:</b>
+                <div className={s.editField}>
                     <input {...register("fullName",)}
                            type='text'
                            defaultValue={profile.fullName}
@@ -51,42 +53,44 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile, to
                     <p>{errors.fullName?.message}</p>
                 </div>
             </div>
-            <div>
-                <b>Looking for a job</b>:
-                <div>
+            <div className={s.dataWrapper}>
+                <b className={s.dataTitle}>Looking for a job:</b>
+                <div className={s.editField}>
                     <input {...register("lookingForAJob")}
                         // defaultValue={profile.lookingForAJob}
                         /* className={s.checkbox}*/
                            type='checkbox'/>
+                    <p>{errors.lookingForAJob?.message}</p>
                 </div>
             </div>
-            <div>
-                <b>My professional skills</b>:
-                <div>
+            <div className={s.dataWrapper}>
+                <b className={s.dataTitle}>My professional skills:</b>
+                <div className={s.editField}>
                     <input {...register("lookingForAJobDescription",)}
                            type='textarea'
                            defaultValue={profile.lookingForAJobDescription}
                            autoFocus={true}
                         /*className={`${s.input} ${errors.email ? s.errorInput : s.input}`}*//>
+                    <p>{errors.lookingForAJobDescription?.message}</p>
                 </div>
             </div>
-            <div>
-                <b>About me</b>:
-                <div>
+            <div className={s.dataWrapper}>
+                <b className={s.dataTitle}>About me:</b>
+                <div className={s.editField}>
                     <input {...register("aboutMe",)}
                            type='textarea'
                            defaultValue={profile.aboutMe}
                            autoFocus={true}
                         /*className={`${s.input} ${errors.email ? s.errorInput : s.input}`}*//>
+                    <p>{errors.aboutMe?.message}</p>
                 </div>
             </div>
 
             <div>
                 <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-                return <div key={key}>
-                    <b>{key}:
-                        <input {...register(`contacts.${key}`)} defaultValue={profile.contacts[key]}/>
-                    </b>
+                return <div className={s.wrapperContact} key={key}>
+                    <b className={s.contactTitle}>{key}:</b>
+                    <input className={s.editFieldContact} {...register(`contacts.${key}`)} defaultValue={profile.contacts[key]}/>
                 </div>
 
             })}

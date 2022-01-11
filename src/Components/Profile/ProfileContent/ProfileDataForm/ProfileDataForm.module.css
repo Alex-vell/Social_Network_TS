@@ -1,0 +1,39 @@
+.profileDataFormContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dataWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.dataTitle{
+    width: 200px;
+}
+
+.editField{
+    width: 200px;
+}
+
+/*Contacts*/
+
+.wrapperContact{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+    padding-bottom: 10px;
+
+}
+.contactTitle{
+    width: 150px;
+}
+.editFieldContact{
+    width: 150px;
+}

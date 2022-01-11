@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {UserType} from "../redux/users-reducer";
-import {saveProfile} from "../redux/profile-reducer";
+import {ProfileType, saveProfile} from "../redux/profile-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -37,7 +37,7 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(userId: number | null) {
-        return instance.get<GetProfileDataType>(`profile/${userId}`)
+        return instance.get<ProfileType>(`profile/${userId}`)
     },
     getStatus(userId: number) {
         return instance.get<string>(`profile/status/${userId}`)
@@ -55,7 +55,7 @@ export const profileAPI = {
             }
         })
     },
-    saveProfile(profile: any) {
+    saveProfile(profile: ProfileType) {
         return instance.put<any>('profile',profile)
     },
 
@@ -89,28 +89,4 @@ type GetUsersType = {
     items: Array<UserType>
     totalCount: number
     error: string
-}
-
-//profileAPI types
-export type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-export type PhotosType = {
-    small: string
-    large: string
-}
-export type GetProfileDataType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
 }

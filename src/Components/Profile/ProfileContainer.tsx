@@ -1,17 +1,26 @@
 import React, {ComponentType} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, getUserStatus, savePhoto, saveProfile, updateUserStatus} from "../../redux/profile-reducer";
+import {
+    getUserProfile,
+    getUserStatus,
+    ProfileType,
+    savePhoto,
+    saveProfile,
+    updateUserStatus
+} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {FormDataType} from "./ProfileContent/ProfileDataForm/ProfileDataForm";
+
 
 type PathParamsType = {
     userId: string
 }
 type MapStateToPropsType = {
-    profile: any
+    profile: ProfileType
     status: string
     isAuth: boolean
     authUserId: number | any
@@ -21,7 +30,7 @@ type MapDispatchToPropsType = {
     getUserStatus: (userID: number | null) => void
     updateUserStatus: (status: string) => void
     savePhoto: (photo: File) => void
-    saveProfile: (profile: any) => void
+    saveProfile: (profile: FormDataType) => void
 }
 type StateAndDispatchPropsType = MapStateToPropsType & MapDispatchToPropsType
 type ProfileContainerStateType = RouteComponentProps<PathParamsType> & StateAndDispatchPropsType
@@ -30,16 +39,17 @@ type ProfileContainerStateType = RouteComponentProps<PathParamsType> & StateAndD
 export class ProfileContainer extends React.Component<ProfileContainerStateType> {
 
     refreshProfile() {
-        let userId: number | null = +this.props.match.params.userId
+        const {match, authUserId, history, getUserProfile, getUserStatus} = this.props
+        let userId: number | null = Number(match.params.userId)
         if (!userId) {
-            userId = this.props.authUserId
+            userId = authUserId
             if (!userId) {
-                this.props.history.push('/login')
+                history.push('/login')
             }
         }
         if (userId) {
-            this.props.getUserProfile(userId)
-            this.props.getUserStatus(userId)
+            getUserProfile(userId)
+            getUserStatus(userId)
         }
     }
 
@@ -47,8 +57,8 @@ export class ProfileContainer extends React.Component<ProfileContainerStateType>
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: MapStateToPropsType, prevState: any) {
-        if (this.props.match.params.userId !== this.props || prevState.match.params.userId) {
+    componentDidUpdate(prevProps: ProfileContainerStateType, prevState: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
         }
     }

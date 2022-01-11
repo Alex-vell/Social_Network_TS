@@ -1,4 +1,4 @@
-import {GetProfileDataType, profileAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
 import {setError} from "./auth-reducer";
@@ -14,7 +14,7 @@ const initialState = {
         {id: 1, message: 'Hey la lay', likesCount: 15},
         {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
-    profile: null as GetProfileDataType | null,
+    profile: null as ProfileType | null,
     status: ''
 } as ProfilePageType
 
@@ -67,7 +67,7 @@ export const addPostAC = (newPostText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: SET_USER_PROFILE,
         profile
@@ -147,9 +147,8 @@ export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
 
 }
 
-export const saveProfile = (profile: any) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
+export const saveProfile = (profile: ProfileType) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
     const userId = getState().auth.userId
-
         try {
             const response = await profileAPI.saveProfile(profile)
             if (response.data.resultCode === 0) {
@@ -169,10 +168,36 @@ export type PostsType = {
     message: string
     likesCount: number
 }
+
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type PhotosType = {
+    small: string
+    large: string
+}
+
+export type ProfileType = {
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    contacts: ContactsType
+    photos: PhotosType
+}
+
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: any
+    profile: ProfileType
     status: string
 }
 
