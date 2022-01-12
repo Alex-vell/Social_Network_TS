@@ -1,24 +1,26 @@
-import {authAPI, LoginParamsType} from "../api/api";
+import {authAPI, LoginParamsType, securityAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {handleServerAppError} from "../utills/error-utils";
 
 const SET_AUTH_USER_DATA = 'auth/SET_AUTH_USER_DATA'
 const SET_ERROR = 'auth/SET_ERROR'
+const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
 
 const initialState = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
-    error: null
+    error: null,
+    captchaURL: null
     //isFetching: true
 }
 
 export const authReducer = (state: InitialStateAuthReducerType = initialState, action: ActionType): InitialStateAuthReducerType => {
     switch (action.type) {
         case SET_AUTH_USER_DATA:
+        case "auth/GET_CAPTCHA_URL_SUCCESS":
             return {
-
                 ...state,
                 ...action.payload,
             }
@@ -37,6 +39,14 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
     return {
         type: SET_AUTH_USER_DATA,
         payload: {userId, email, login, isAuth}
+
+    } as const
+}
+
+export const getCaptchaUrlSuccess = (captchaURL: string | null) => {
+    return {
+        type: GET_CAPTCHA_URL_SUCCESS,
+        payload: {captchaURL}
 
     } as const
 }
@@ -65,11 +75,22 @@ export const loginUser = (data: LoginParamsType) => {
         if (response.data.resultCode === 0) {
             dispatch(getAuthUser())
         } else {
+            if (response.data.resultCode === 10) {
+                dispatch(getCaptchaUrl())
+            }
             handleServerAppError(response.data, dispatch)
         }
         /* .catch((error: AxiosError) => {
              alert(error.message)
          })*/
+    }
+}
+
+export const getCaptchaUrl = () => {
+    return async (dispatch: Dispatch<any>) => {
+        const response = await securityAPI.getCaptchaUrl()
+        dispatch(getCaptchaUrlSuccess(response.data.url))
+
     }
 }
 
@@ -89,7 +110,10 @@ export type InitialStateAuthReducerType = {
     login: string | null
     isAuth: boolean
     error: string | null
+    captchaURL: string | null
 }
 
-type ActionType = ReturnType<typeof setAuthUserData> | ReturnType<typeof setError>
+type ActionType = ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setError>
+    | ReturnType<typeof getCaptchaUrlSuccess>
 

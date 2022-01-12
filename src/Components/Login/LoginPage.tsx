@@ -87,10 +87,12 @@ type FormikDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string | null
 }
 
 export const LoginPage = () => {
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const captchaUrl = useSelector<AppStateType, string | null>(state => state.auth.captchaURL)
     const error = useSelector<AppStateType, string | null>(state => state.auth.error)
     const dispatch = useDispatch()
 
@@ -98,6 +100,7 @@ export const LoginPage = () => {
         email: '',
         password: '',
         rememberMe: false,
+        captcha: ''
     }
 
     const onSubmit = (values: FormikDataType) => {
@@ -181,12 +184,18 @@ export const LoginPage = () => {
                 </div>
                 <button type="submit" disabled={!(formik.dirty && formik.isValid)} className={s.button}>Submit</button>
                 {error && <div style={{color: 'red'}}>{error}</div>}
+
+                {captchaUrl && <img src={captchaUrl}/>}
+                {captchaUrl && <input id="captcha"
+                                      name="captcha"
+                                      type='text'
+                                      value={formik.values.captcha}
+                                      onChange={formik.handleChange}
+                                      onBlur={formik.handleBlur}/>}
             </form>
         </div>
     );
 }
-
-
 
 
 ///////////////////////////////

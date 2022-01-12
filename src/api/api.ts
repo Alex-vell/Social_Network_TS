@@ -62,6 +62,15 @@ export const profileAPI = {
 }
 
 
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<any>(`security/get-captcha-url`)
+    },
+
+
+}
+
+
 // types
 
 export type CommonResponseType<T = {}> = {
@@ -81,7 +90,7 @@ export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: string
+    captcha?: string | null
 }
 
 // usersAPI types
