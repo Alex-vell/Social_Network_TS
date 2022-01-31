@@ -88,7 +88,7 @@ export const deletePostAC = (postId: number) => {
     } as const
 }
 
-export const savePhotoSuccess = (photos:  {small: string, large: string }) => {
+export const savePhotoSuccess = (photos: { small: string, large: string }) => {
     return {
         type: SAVE_PHOTO_SUCCESS,
         photos
@@ -102,8 +102,7 @@ export const getUserProfile = (userId: number | null) => {
         try {
             const response = await profileAPI.getProfile(userId)
             dispatch(setUserProfile(response.data))
-        }
-        catch (e) {
+        } catch (e) {
 
         }
     }
@@ -114,8 +113,7 @@ export const getUserStatus = (userId: number) => async (dispatch: Dispatch) => {
     try {
         const response = await profileAPI.getStatus(userId)
         dispatch(setUserStatus(response.data))
-    }
-    catch (e) {
+    } catch (e) {
 
     }
 }
@@ -127,8 +125,7 @@ export const updateUserStatus = (status: string) => async (dispatch: Dispatch) =
         if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
         }
-    }
-    catch (e) {
+    } catch (e) {
 
     }
 }
@@ -140,8 +137,7 @@ export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.data.photos))
         }
-    }
-    catch (e) {
+    } catch (e) {
 
     }
 
@@ -149,16 +145,15 @@ export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
 
 export const saveProfile = (profile: ProfileType) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
     const userId = getState().auth.userId
-        try {
-            const response = await profileAPI.saveProfile(profile)
-            if (response.data.resultCode === 0) {
-                // dispatch(savePhotoSuccess(response.data.data.photos))
-                dispatch(getUserProfile(userId))
-            }
+    try {
+        const response = await profileAPI.saveProfile(profile)
+        if (response.data.resultCode === 0) {
+            // dispatch(savePhotoSuccess(response.data.data.photos))
+            dispatch(getUserProfile(userId))
         }
-        catch (e) {
-            dispatch(setError(e.message))
-        }
+    } catch (e) {
+        dispatch(setError(e.message))
+    }
 
 }
 
