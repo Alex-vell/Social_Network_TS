@@ -5,7 +5,7 @@ const state = {
         {id: 1, message: 'Hey la lay', likesCount: 15},
         {id: 2, message: 'Bla bla', likesCount: 11}
     ] as Array<PostsType>,
-    profile: null,
+    profile: {},
     status: ''
 } as ProfilePageType
 

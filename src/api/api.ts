@@ -1,12 +1,13 @@
 import axios, {AxiosResponse} from "axios";
 import {UserType} from "../redux/users-reducer";
-import {ProfileType, saveProfile} from "../redux/profile-reducer";
+import {ProfileType} from "../redux/profile-reducer";
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    baseURL: 'https://social-network.samuraijs.com/api/1.0',
     headers: {
-        'API-KEY': '4fa02be0-fc45-4f63-a405-9880e98f8e95'
+        'API-KEY': '4fa02be0-fc45-4f63-a405-9880e98f8e95',
+        'Content-Type': 'application/json'
     },
 })
 

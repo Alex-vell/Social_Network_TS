@@ -11,6 +11,7 @@ describe('Pagination component test', () => {
         onPageChangedCallback={() => {}}
         currentPage={1}/>)
         const root = component.root
+        // eslint-disable-next-line testing-library/await-async-query
         const spans = root.findAllByType('span')
         expect(spans.length).toBe(10)
     })
@@ -22,7 +23,8 @@ describe('Pagination component test', () => {
                                                           onPageChangedCallback={() => {}}
                                                           currentPage={1}/>)
         const root = component.root
-        const button = root.findAllByType('button')
+        // eslint-disable-next-line testing-library/await-async-query
+        const button = root.findAllByType('img')
         expect(button.length).toBe(1)
     })
 

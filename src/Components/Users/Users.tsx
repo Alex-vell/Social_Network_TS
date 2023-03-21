@@ -2,6 +2,7 @@ import React from "react";
 import {InitialStateUsersReducerType} from "../../redux/users-reducer";
 import {Pagination} from "../common/pagination/Pagination";
 import {User} from "./User";
+import style from './Users.module.scss';
 
 
 type UsersType = {
@@ -23,20 +24,27 @@ export const Users: React.FC<UsersType> = (
         unFollow, follow
     }) => {
 
-    return <div>
-        <Pagination currentPage={currentPage}
-                    totalItemsCount={totalUsersCount}
-                    pageSize={pageSize}
-                    onPageChangedCallback={onPageChangedCallback}/>
-        <div>
-            {
-                users.users.map(u => <User key={u.id}
-                                           follow={follow}
-                                           unFollow={unFollow}
-                                           user={u}
-                                           followingInProgress={followingInProgress}/>)
+    return (
+        <div className={style.usersContainer}>
+            <Pagination currentPage={currentPage}
+                        totalItemsCount={totalUsersCount}
+                        pageSize={pageSize}
+                        onPageChangedCallback={onPageChangedCallback}/>
+            <div>
+                {
+                    users.users.map(u => <User key={u.id}
+                                               follow={follow}
+                                               unFollow={unFollow}
+                                               user={u}
+                                               followingInProgress={followingInProgress}/>)
 
-            }
+                }
+            </div>
+
+            <Pagination currentPage={currentPage}
+                        totalItemsCount={totalUsersCount}
+                        pageSize={pageSize}
+                        onPageChangedCallback={onPageChangedCallback}/>
         </div>
-    </div>
+    )
 }

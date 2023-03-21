@@ -4,14 +4,8 @@ const ADD_MESSAGE = 'dialog/ADD-MESSAGE';
 
 const initialState = {
     dialogs: [
-        {id: v1(), name: 'Alex'},
-        {id: v1(), name: 'Natali'},
-        {id: v1(), name: 'Anna'}
     ] as Array<DialogsType>,
     messages: [
-        {id: v1(), message: 'I am a developer'},
-        {id: v1(), message: 'bla bla'},
-        {id: v1(), message: 'la la'}
     ] as Array<MessagesType>,
 } as DialogsPageType
 

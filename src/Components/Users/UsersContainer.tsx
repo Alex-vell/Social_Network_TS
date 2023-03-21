@@ -3,7 +3,7 @@ import {follow, requestUsers, setCurrentPage, toggleFollowingInProgress, unFollo
 import {AppStateType} from "../../redux/redux-store";
 import React, {ComponentType} from "react";
 import {Users} from "./Users";
-import {Preloader} from "../general/Preloader/Preloader";
+// import {Preloader} from "../general/Preloader/Preloader";
 import {compose} from "redux";
 import {
     getUsers,
@@ -12,6 +12,7 @@ import {
     getCurrentPage,
     getIsFetching, getFollowingInProgress,
 } from "../../redux/users-selectors";
+import {Preloader} from "../common/Preloader/Preloader";
 
 
 export class UsersContainer extends React.Component<UsersPropsType> {

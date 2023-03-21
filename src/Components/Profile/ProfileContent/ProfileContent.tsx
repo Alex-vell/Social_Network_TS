@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from "react";
-import s from './ProfileContent.module.css'
-import {Preloader} from "../../general/Preloader/Preloader";
-import photoAvatar from "../../../assets/images/photoAvatar.jpg";
+import s from './ProfileContent.module.scss'
 import {ProfileStatusWithHooks} from "./ProfileStatus/ProfileStatusWithHooks";
 import {FormDataType, ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 import {ProfileType} from "../../../redux/profile-reducer";
+import {logo} from "../../../assets/images";
+import {Preloader} from "../../common/Preloader/Preloader";
 
 
 type profileContentType = {
@@ -48,7 +48,7 @@ export const ProfileContent: React.FC<profileContentType> = (
                     }}/>
                     : <div className={s.imgAndProfileDataContainer}>
                         <div>
-                            <img className={s.userPhotoImg} src={profile.photos.large || photoAvatar} alt='user'/>
+                            <img className={s.userPhotoImg} src={profile.photos.large || logo.avatar} alt='user'/>
                             {isOwner && <div><input type={'file'} onChange={onPhotoSelected}/></div>}
                         </div>
                         <div className={s.profileData}>

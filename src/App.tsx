@@ -1,5 +1,5 @@
 import React, {ComponentType} from 'react';
-import './App.css';
+import './App.scss';
 import {Navbar} from "./Components/Navbar/Navbar";
 import {HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {Settings} from "./Components/Settings/Settings";
@@ -9,10 +9,12 @@ import {LoginPage} from "./Components/Login/LoginPage";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {AppStateType, store} from "./redux/redux-store";
-import {Preloader} from "./Components/general/Preloader/Preloader";
+// import {Preloader} from "./Components/general/Preloader/Preloader";
 import {initializeApp} from "./redux/app-reducer";
 import {Error404} from "./Components/common/Error404/Error404";
 import {withSuspense} from "./hoc/withSuspense";
+import {Home} from "./Components/Home/Home";
+import {Preloader} from "./Components/common/Preloader/Preloader";
 
 const DialogsContainer = React.lazy(() => import("./Components/Dialogs/DialogsContainer"));
 const UsersContainer = React.lazy(() => import("./Components/Users/UsersContainer"));
@@ -26,6 +28,9 @@ class App extends React.Component<any> {
 
     render() {
 
+        // if (!this.props.initialized) {
+        //     return <Preloader/>
+        // }
         if (!this.props.initialized) {
             return <Preloader/>
         }
@@ -36,7 +41,8 @@ class App extends React.Component<any> {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Switch>
-                        <Route exact path='/' render={() => <Redirect to='/profile'/>}/>
+                        <Route exact path='/' render={() => <Redirect to='/home'/>}/>
+                        <Route path='/home/' render={() => <Home/>}/>
                         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                         <Route path='/dialogs' render={() => withSuspense(<DialogsContainer/>)}/> {/* hoc */}
                         <Route path='/settings' render={() => <Settings/>}/>
@@ -76,7 +82,7 @@ export const SocialNetworkApp = () => {
 
 // FC using Hooks
 /*import React, {useEffect} from 'react';
-import './App.css';
+import './App.scss';
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";

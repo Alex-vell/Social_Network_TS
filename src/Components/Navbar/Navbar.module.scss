@@ -1,0 +1,43 @@
+@import "src/assets/sass/var";
+
+.nav {
+  height: auto;
+  /*padding-right: 10px;*/
+  border-radius: 10px;
+  margin-right: 10px;
+  grid-area: n;
+  /*background-color: #e2edff;*/
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  padding: 10px 0;
+
+  @media screen and (min-width: 350px) and (max-width: 599px) {
+    margin: 0 5px;
+    height: 100%;
+  }
+
+  .item {
+    padding: 8px 12px;
+    color: $general-text-color;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    .menuItemImg {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+    }
+  }
+
+  .item.active {
+    //color: $menu-active-color;
+    background: $menu-hover-background;
+  }
+}
+
+.item:hover {
+  background: $menu-hover-background;
+}
