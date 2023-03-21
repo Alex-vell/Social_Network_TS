@@ -22,10 +22,12 @@ export const Home = () => {
     if (!userId) {
         return <Redirect exact from="/login" to="/login" />
     }
+
     return (
         <div className={s.home}>
             <div className={s.banner}/>
-            <img src={user?.photos ? user.photos.large : logo.avatar} alt="user" className={s.avatar}/>
+            {/*<img src={user?.photos ? user.photos.large : logo.avatar} alt="user" className={s.avatar}/>*/}
+            <img src={user?.photos.large ? user.photos.large : logo.avatar} alt="user" className={s.avatar}/>
             <div className={s.userInfoBlock}>
                 <p className={s.userName}>{user?.fullName}</p>
                 <p className={s.aboutMe}>{user?.aboutMe}</p>
